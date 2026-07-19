@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Flashcard - VietMiniApp</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.flash-container{
+    max-width:500px;
+    margin:40px auto;
+    padding:20px;
+    text-align:center;
+}
+
+.flash{
+    width:100%;
+    height:320px;
+    perspective:1000px;
+    cursor:pointer;
+}
+
+.flash-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transition:transform .6s;
+    transform-style:preserve-3d;
+}
+
+.flash.flip .flash-inner{
+    transform:rotateY(180deg);
+}
+
+.face{
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius:20px;
+    background:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
+    backface-visibility:hidden;
+}
+
+.face h2{
+    font-size:34px;
+    color:#00b894;
+    margin-bottom:15px;
+}
+
+.face p{
+    font-size:22px;
+}
+
+.back{
+    transform:rotateY(180deg);
+    background:#00b894;
+    color:white;
+}
+
+.back h2{
+    color:white;
+}
+
+.back small{
+    margin-top:15px;
+    font-size:18px;
+}
+
+.control{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-top:30px;
+}
+
+.control button{
+    padding:12px 20px;
+}
+
+.home{
+    margin-top:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">
+
+🎴 Flashcard
+
+</div>
+
+<div class="subtitle">
+
+Nhấn vào thẻ để lật
+
+</div>
+
+</header>
+
+<div class="flash-container">
+
+<div class="flash" id="flash" onclick="flipCard()">
+
+<div class="flash-inner">
+
+<div class="face" id="front">
+
+<h2>Đang tải...</h2>
+
+</div>
+
+<div class="face back" id="back">
+
+<h2>Đang tải...</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="control">
+
+<button onclick="previousWord()">
+
+⬅ Trước
+
+</button>
+
+<button onclick="flipCard()">
+
+🔄 Lật
+
+</button>
+
+<button onclick="speakWord()">
+
+🔊 Nghe
+
+</button>
+
+<button onclick="saveWord()">
+
+❤️ Lưu
+
+</button>
+
+<button onclick="nextWord()">
+
+➡ Tiếp
+
+</button>
+
+</div>
+
+<div class="home">
+
+<button onclick="location.href='index.html'">
+
+🏠 Trang chủ
+
+</button>
+
+</div>
+
+</div>
+
+<script src="data.js"></script>
+
+<script src="flashcard.js"></script>
+
+</body>
+
+</html>

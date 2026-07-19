@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tiến độ học tập</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.container{
+
+max-width:900px;
+
+margin:auto;
+
+padding:20px;
+
+}
+
+.card{
+
+background:white;
+
+border-radius:20px;
+
+padding:20px;
+
+margin-bottom:20px;
+
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.big{
+
+font-size:42px;
+
+font-weight:bold;
+
+color:#00b894;
+
+margin-top:10px;
+
+}
+
+.progress{
+
+width:100%;
+
+height:18px;
+
+background:#ddd;
+
+border-radius:20px;
+
+overflow:hidden;
+
+margin-top:20px;
+
+}
+
+.bar{
+
+height:100%;
+
+background:#00b894;
+
+width:0%;
+
+transition:1s;
+
+}
+
+.stat{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:15px;
+
+font-size:18px;
+
+}
+
+button{
+
+margin-top:20px;
+
+padding:12px 30px;
+
+border:none;
+
+border-radius:30px;
+
+background:#00b894;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#00997a;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">
+
+📊 Tiến độ học
+
+</div>
+
+<div class="subtitle">
+
+Theo dõi quá trình học tập
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Hoàn thành</h2>
+
+<div class="big" id="percent">
+
+0%
+
+</div>
+
+<div class="progress">
+
+<div class="bar" id="bar">
+
+</div>
+
+</div>
+
+<div class="stat">
+
+<span>Bài đã học</span>
+
+<b id="lessonDone">
+
+0
+
+</b>
+
+</div>
+
+<div class="stat">
+
+<span>Tổng bài</span>
+
+<b>
+
+30
+
+</b>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>⭐ Điểm</h2>
+
+<div class="big" id="score">
+
+0
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>🔥 XP</h2>
+
+<div class="big" id="xp">
+
+0
+
+</div>
+
+</div>
+
+<button onclick="location.href='index.html'">
+
+🏠 Trang chủ
+
+</button>
+
+</div>
+
+<script>
+
+let done=0;
+
+for(let i=1;i<=30;i++){
+
+if(localStorage.getItem("lesson_"+i)=="done"){
+
+done++;
+
+}
+
+}
+
+let percent=Math.round(done/30*100);
+
+document.getElementById("lessonDone").innerHTML=done;
+
+document.getElementById("percent").innerHTML=percent+"%";
+
+document.getElementById("bar").style.width=percent+"%";
+
+document.getElementById("score").innerHTML=
+
+localStorage.getItem("score")||0;
+
+document.getElementById("xp").innerHTML=
+
+localStorage.getItem("xp")||0;
+
+</script>
+
+</body>
+
+</html>

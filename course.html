@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Khóa học - VietMiniApp</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+    background:#f5f7fb;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.level{
+    background:white;
+    margin-bottom:25px;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.level h2{
+    color:#00b894;
+    margin-bottom:10px;
+}
+
+.level p{
+    color:#666;
+    margin-bottom:15px;
+}
+
+.progress{
+    width:100%;
+    height:12px;
+    background:#ddd;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.bar{
+    height:100%;
+    width:0%;
+    background:#00b894;
+}
+
+button{
+    background:#00b894;
+    color:white;
+    border:none;
+    padding:12px 30px;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#00997a;
+}
+
+button:disabled{
+    background:#999;
+    cursor:not-allowed;
+}
+
+.back{
+    margin-top:30px;
+    text-align:center;
+}
+
+.back button{
+    background:#3498db;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">
+
+📚 Khóa học
+
+</div>
+
+<div class="subtitle">
+
+Lộ trình học tiếng Việt A0 → B2
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="level">
+
+<h2>🟢 A0 - Người mới bắt đầu</h2>
+
+<p>
+
+30 bài học
+
+</p>
+
+<div class="progress">
+
+<div class="bar" id="a0bar"></div>
+
+</div>
+
+<button onclick="location.href='lesson.html?id=1'">
+
+▶ Bắt đầu học
+
+</button>
+
+</div>
+
+<div class="level">
+
+<h2>🟡 A1</h2>
+
+<p>
+
+40 bài học
+
+</p>
+
+<div class="progress">
+
+<div class="bar"></div>
+
+</div>
+
+<button disabled>
+
+Sắp ra mắt
+
+</button>
+
+</div>
+
+<div class="level">
+
+<h2>🟠 A2</h2>
+
+<p>
+
+40 bài học
+
+</p>
+
+<div class="progress">
+
+<div class="bar"></div>
+
+</div>
+
+<button disabled>
+
+Sắp ra mắt
+
+</button>
+
+</div>
+
+<div class="level">
+
+<h2>🔵 B1</h2>
+
+<p>
+
+45 bài học
+
+</p>
+
+<div class="progress">
+
+<div class="bar"></div>
+
+</div>
+
+<button disabled>
+
+Sắp ra mắt
+
+</button>
+
+</div>
+
+<div class="level">
+
+<h2>🟣 B2</h2>
+
+<p>
+
+45 bài học
+
+</p>
+
+<div class="progress">
+
+<div class="bar"></div>
+
+</div>
+
+<button disabled>
+
+Sắp ra mắt
+
+</button>
+
+</div>
+
+<div class="back">
+
+<button onclick="location.href='index.html'">
+
+🏠 Quay về Trang chủ
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let completed = 0;
+
+for(let i = 1; i <= 30; i++){
+
+    if(localStorage.getItem("lesson_" + i) === "done"){
+
+        completed++;
+
+    }
+
+}
+
+let percent = Math.round(completed / 30 * 100);
+
+document.getElementById("a0bar").style.width = percent + "%";
+
+</script>
+
+</body>
+
+</html>
