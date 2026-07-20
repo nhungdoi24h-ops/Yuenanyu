@@ -4054,26 +4054,6 @@ exampleVN:"Tôi đã đặt bàn trước.",
 exampleCN:"我已经订位了。"
 },
 
-A：欢迎光临，请问几位？
-(B: Huānyíng guānglín, qǐngwèn jǐ wèi?)
-Chào mừng quý khách, xin hỏi mấy người?
-
-B：两位，谢谢。
-(Liǎng wèi, xièxie.)
-Hai người, cảm ơn.
-
-A：请看菜单。
-(Qǐng kàn càidān.)
-Xin mời xem thực đơn.
-
-B：我要一份炒饭，一碗汤。
-(Wǒ yào yí fèn chǎofàn, yì wǎn tāng.)
-Tôi muốn một phần cơm chiên và một bát canh.
-
-A：好的。
-(Hǎo de.)
-Được ạ.
-
 /*=========================
 Bài 20 - Bệnh viện（第20课：医院）
 =========================*/
@@ -4277,19 +4257,3 @@ pinyin:"Jiànkāng",
 exampleVN:"Sức khỏe là quan trọng nhất.",
 exampleCN:"健康最重要。"
 },
-
-医生：你怎么了？
-(Yīshēng: Nǐ zěnme le?)
-Bác sĩ: Bạn bị sao vậy?
-
-病人：我发烧了，还咳嗽。
-(Bìngrén: Wǒ fāshāo le, hái késou.)
-Bệnh nhân: Tôi bị sốt và còn bị ho.
-
-医生：先量体温，然后吃药，多休息。
-(Yīshēng: Xiān liáng tǐwēn, ránhòu chī yào, duō xiūxi.)
-Bác sĩ: Trước tiên đo nhiệt độ, sau đó uống thuốc và nghỉ ngơi nhiều nhé.
-
-病人：谢谢医生。
-(Bìngrén: Xièxie yīshēng.)
-Bệnh nhân: Cảm ơn bác sĩ.
