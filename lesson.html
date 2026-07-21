@@ -118,46 +118,22 @@ Chọn bài học để bắt đầu.
 <div class="container">
 <div class="progressBox">
 <div class="progress">
-<div
-id="progressBar"
-class="progressValue">
-</div>
+<div id="progressBar" class="progressValue"></div>
 </div>
 <p id="progressText"></p>
 </div>
-<div id="lessonContent">
+<div id="lessonContent"></div>
+<div class="buttonBar">
+<button class="prev" onclick="previousLesson()">⬅ Bài trước</button>
+<button class="next" onclick="nextLesson()">Bài tiếp ➜</button>
 </div>
 <div class="buttonBar">
-<button
-class="prev"
-onclick="previousLesson()">
-⬅ Bài trước
-</button>
-<button
-class="next"
-onclick="nextLesson()">
-Bài tiếp ➜
-</button>
-</div>
-<div class="buttonBar">
-<button
-class="flash"
-onclick="openFlashcard()">
-Flashcard
-</button>
-<button
-class="quiz"
-onclick="openQuiz()">
-Quiz
-</button>
-<button
-class="home"
-onclick="goHome()">
-Trang chủ
-</button>
+<button class="flash" onclick="openFlashcard()">Flashcard</button>
+<button class="quiz" onclick="openQuiz()">Quiz</button>
+<button class="home" onclick="goHome()">Trang chủ</button>
 </div>
 </div>
-<script src="data.js" defer></script>
-<script src="lesson.js" defer></script>
+<script src="data.js"></script>
+<script src="lesson.js"></script>
 </body>
 </html>
