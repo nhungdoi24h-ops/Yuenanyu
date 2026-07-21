@@ -1,10 +1,11 @@
-/* ====================== 全局重置 & 设计Token ====================== */
+/* ================= VietMiniApp 标准化全局样式 ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 :root {
+  /* 色彩系统 */
   --primary: #00b894;
   --primary-light: #54e0c0;
   --primary-dark: #00866c;
@@ -15,6 +16,7 @@
   --success: #4caf50;
   --danger: #f44336;
   --warning: #ffc107;
+  /* 中性灰度 */
   --gray-50: #f8fafc;
   --gray-100: #f1f5f9;
   --gray-200: #e2e8f0;
@@ -22,24 +24,28 @@
   --gray-60: #64748b;
   --gray-80: #1e293b;
   --white: #ffffff;
+  /* 阴影分层 */
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
   --shadow-md: 0 6px 18px rgba(0,0,0.08);
   --shadow-lg: 0 12px 32px rgba(0,0,0.12);
+  /* 圆角阶梯 */
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-full: 9999px;
+  /* 间距 */
   --space-xs: 8px;
   --space-sm: 12px;
   --space-md: 20px;
   --space-lg: 28px;
+  /* 动效时长 */
   --fast: 0.18s ease;
   --normal: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   --slow: 0.6s ease;
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Noto Sans SC, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
   background: var(--gray-50);
   color: var(--gray-80);
   line-height: 1.6;
@@ -47,21 +53,30 @@ body {
   opacity: 0;
   animation: pageFadeIn var(--slow) forwards;
 }
+/* 页面入场淡入动画 */
 @keyframes pageFadeIn {
   to { opacity: 1; }
+}
+/* 骨架屏加载动画 */
+@keyframes skeletonLoad {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 /* 暗色模式 */
 body.dark {
   background: #0f172a;
   color: var(--gray-200);
 }
-body.dark .card, body.dark .word, body.dark .flashcard, body.dark .menuItem {
+body.dark .card,
+body.dark .word,
+body.dark .menuItem,
+body.dark .flashcard {
   background: #1e293b;
 }
 body.dark .example {
   background: #334155;
 }
-/* 通用容器 */
+/* 容器 */
 .container {
   max-width: 960px;
   margin: 0 auto;
@@ -81,8 +96,8 @@ body.dark .example {
   right: var(--space-md);
   top: var(--space-md);
   padding: var(--space-xs) var(--space-sm);
-  background: rgba(255,255,255,0.25);
-  border: 1px rgba(255,255,0.4) solid;
+  background: rgba(255,255,0.25);
+  border: 1px solid rgba(255,255,0.4);
   border-radius: var(--radius-full);
   color: white;
   cursor: pointer;
@@ -102,7 +117,7 @@ body.dark .example {
   font-size: 16px;
   opacity: 0.9;
 }
-/* 卡片通用标准组件 */
+/* 通用卡片 */
 .card, .word, .menuItem {
   background: var(--white);
   border-radius: var(--radius-lg);
@@ -116,7 +131,7 @@ body.dark .example {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
-/* 图片容器 + 缩放动效 */
+/* 词汇实景图片 */
 .word-img {
   width: 100%;
   height: 190px;
@@ -133,16 +148,12 @@ body.dark .example {
 .word:hover .word-img img {
   transform: scale(1.06);
 }
-/* 骨架屏加载 */
+/* 骨架占位 */
 .skeleton {
   background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
   background-size: 200% 100%;
   animation: skeletonLoad 1.2s infinite;
   border-radius: var(--radius-sm);
-}
-@keyframes skeletonLoad {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
 }
 /* 文字层级 */
 .wordVN {
@@ -155,31 +166,46 @@ body.dark .example {
   margin-top: var(--space-xs);
 }
 .wordPY {
-  font-size: 18;
+  font-size: 18px;
   color: var(--gray-60);
   margin-top: var(--space-xs);
 }
+/* 例句区块 */
 .example {
   margin-top: var(--space-lg);
   padding: var(--space-md);
   background: var(--gray-100);
-  border-left: 6px var(--primary) solid;
+  border-left: 6px solid var(--primary);
   border-radius: var(--radius-sm);
 }
-/* 按钮系统 统一交互反馈 */
+/* 搜索框 */
+#search, .search {
+  width: 100%;
+  padding: 16px var(--space-md);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  outline: none;
+  transition: var(--normal);
+}
+#search:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(0,184,148,0.15);
+}
+/* 按钮统一规范 触控最小48px */
 button {
   border: none;
   border-radius: var(--radius-md);
   padding: 14px var(--space-md);
+  min-height: 48px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition: var(--normal);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 48px; /* 移动端触控标准尺寸 */
+  transition: var(--normal);
 }
 button.primary {
   background: var(--primary-gradient);
@@ -193,9 +219,13 @@ button.flip {
   background: linear-gradient(135deg, var(--orange), #f57c00);
   color: white;
 }
-button.secondary {
-  background: var(--gray-200);
-  color: var(--gray-80);
+button.prev {
+  background: linear-gradient(135deg,#607D8B,#546e7a);
+  color:white;
+}
+button.next {
+  background: linear-gradient(135deg,#4CAF50,#388e3c);
+  color:white;
 }
 button:hover {
   transform: translateY(-3px);
@@ -204,19 +234,16 @@ button:hover {
 button:active {
   transform: scale(0.97);
 }
-/* 搜索框 */
-#search {
-  width: 100%;
-  padding: 16px var(--space-md);
-  border: 1px var(--gray-200) solid;
-  border-radius: var(--radius-md);
-  font-size: 16px;
-  transition: var(--normal);
-  outline: none;
+/* 按钮组自适应 */
+.button-group {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-top: var(--space-lg);
 }
-#search:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(0,184,148,0.15);
+.button-group button {
+  flex: 1;
+  min-width: 120px;
 }
 /* 进度条 */
 .progress {
@@ -232,7 +259,7 @@ button:active {
   border-radius: var(--radius-full);
   transition: width var(--slow);
 }
-/* Flashcard 3D低功耗翻转 */
+/* Flashcard 3D翻转 */
 .flashcard {
   position: relative;
   min-height: 420px;
@@ -265,10 +292,10 @@ button:active {
 .back {
   transform: rotateY(180deg);
 }
-/* Quiz答题选项 */
+/* Quiz 选项 */
 .answer {
   padding: var(--space-md);
-  border: 2px var(--gray-200) solid;
+  border: 2px solid var(--gray-200);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: var(--normal);
@@ -276,7 +303,7 @@ button:active {
 }
 .answer:hover {
   border-color: var(--primary);
-  background: rgba(0,184,148,0.06);
+  background: rgba(0,184,0.06);
   transform: scale(1.01);
 }
 .answer.correct {
@@ -287,23 +314,12 @@ button:active {
   background: rgba(244,67,54,0.12);
   border-color: var(--danger);
 }
-/* 空状态、错误状态 */
+/* 空状态 */
 .empty-state {
   text-align: center;
   padding: 60px 20px;
-  color: var(--gray-60);
   font-size: 20px;
-}
-/* 按钮组自适应布局 */
-.button-group {
-  display: flex;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-  margin-top: var(--space-lg);
-}
-.button-group button {
-  flex: 1;
-  min-width: 120px;
+  color: var(--gray-60);
 }
 /* 底部导航 */
 .footer-nav {
@@ -315,7 +331,7 @@ button:active {
   display: flex;
   justify-content: space-around;
   padding: 12px 0;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 -4px 10px rgba(0,0,0.06);
 }
 .nav-item {
   text-align: center;
@@ -327,11 +343,26 @@ button:active {
   color: var(--primary);
   transform: scale(1.05);
 }
-/* 响应式适配 */
+/* Toast 轻提示 */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  color: white;
+  z-index: 9999;
+  animation: toastIn 0.3s forwards;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%,0); }
+}
+/* 响应式适配移动端 */
 @media (max-width:768px) {
   .logo { font-size: 28px; }
   .wordVN { font-size: 26px; }
   .word-img { height: 150px; }
   .container { padding: var(--space-sm); }
-  .button-group { gap: var(--space-xs); }
 }
