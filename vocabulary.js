@@ -3,13 +3,17 @@
  vocabulary.js
  Version 2.0
 =========================================*/
-// Kiểm tra dữ liệu tồn tại
-if (typeof VOCABULARY === "undefined") {
-  alert("Lỗi tải dữ liệu từ vựng, vui lòng làm mới trang!");
-  var words = [];
-} else {
-  let words = [...VOCABULARY];
-}
+let words = [];
+
+document.addEventListener("DOMContentLoaded", function(){
+    if (typeof VOCABULARY === "undefined" || !Array.isArray(VOCABULARY)) {
+        alert("Dữ liệu từ vựng tải thất bại, vui lòng làm mới trang!");
+        renderVocabulary([]);
+        return;
+    }
+    words = [...VOCABULARY];
+    renderVocabulary();
+});
 
 // Hiển thị danh sách từ
 function renderVocabulary(list = words) {
@@ -46,6 +50,7 @@ function renderVocabulary(list = words) {
     }
     document.getElementById("list").innerHTML = html;
 }
+
 // Tìm kiếm
 function searchWord() {
     const keyword = document
@@ -60,6 +65,7 @@ function searchWord() {
     );
     renderVocabulary(result);
 }
+
 // Phát âm
 function speakWord(text) {
     speechSynthesis.cancel();
@@ -69,31 +75,26 @@ function speakWord(text) {
     speech.pitch = 1;
     speechSynthesis.speak(speech);
 }
+
 // Lưu từ yêu thích
 function saveWord(text) {
     let favorites = [];
     try {
-      favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        const raw = localStorage.getItem("favorites");
+        if(raw) favorites = JSON.parse(raw);
     } catch (e) {
-      localStorage.removeItem("favorites");
+        localStorage.removeItem("favorites");
     }
     if (!favorites.includes(text)) {
         favorites.push(text);
-        localStorage.setItem(
-            "favorites",
-            JSON.stringify(favorites)
-        );
+        localStorage.setItem("favorites", JSON.stringify(favorites));
         alert("❤️ Đã lưu: " + text);
     } else {
         alert("Từ này đã có trong danh sách.");
     }
 }
+
 // Mở Flashcard
 function openFlashcard(lesson) {
-    window.location.href =
-        "flashcard.html?id=" + lesson;
+    window.location.href = "flashcard.html?id=" + lesson;
 }
-// Khởi động
-document.addEventListener("DOMContentLoaded", function(){
-  renderVocabulary();
-});
