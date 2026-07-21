@@ -6,33 +6,28 @@
 <title>Flashcard</title>
 <link rel="stylesheet" href="style.css">
 <style>
-header{
-background:linear-gradient(135deg,#4CAF50,#388e3c);
-color:white;
-padding:20px;
-text-align:center;
-box-shadow:0 4px 10px rgba(0,0,0.1);
-position:relative;
+header{background:var(--primary-gradient);}
+/* 悬浮自动翻转规则 */
+.flash-wrap{transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.25, 1);}
+.flashcard:hover .flash-wrap{
+  transform: rotateY(180deg);
 }
-.container{max-width:900px;margin:auto;padding:20px;}
-.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;}
-.buttons button{flex:1;min-width:120px;}
 </style>
 </head>
 <body>
-<header>
+<header class="header">
 <button class="lang-switch" onclick="switchLang()">
 <span id="langBtn"></span>
 </button>
-<h1 id="lessonTitle">Flashcard Học Từ</h1>
-<p id="lessonInfo">Ôn tập thẻ từ vựng</p>
+<h1 id="lessonTitle">Flashcard</h1>
+<p id="lessonInfo"></p>
 </header>
 <div class="container">
 <div class="progress">
 <div id="progressBar" class="progressBar"></div>
 </div>
 
-<div class="flashcard">
+<div class="flashcard" id="cardBox">
 <div class="flash-wrap" id="flipWrap">
 <div class="front">
 <div class="word-img" id="frontImg"></div>
@@ -48,21 +43,20 @@ position:relative;
 </div>
 </div>
 
-<div class="buttons">
+<div class="button-group">
 <button class="speak" onclick="readVoice(document.getElementById('vn').innerText)">🔊 <span id="txtListen"></span></button>
 <button class="flip" onclick="flipCard()">🔄 <span id="txtFlip"></span></button>
 </div>
-<div class="buttons">
+<div class="button-group">
 <button class="prev" onclick="previousWord()">⬅ <span id="txtPrev"></span></button>
 <button class="next" onclick="nextWord()">➡ <span id="txtNext"></span></button>
 </div>
-<div class="buttons">
+<div class="button-group">
 <button onclick="backLesson()">📖 <span id="txtBackLesson"></span></button>
-<button onclick="goHome()">🏠 <span id="txtHome"></span></button>
+<button class="primary" onclick="goHome()">🏠 <span id="txtHome"></span></button>
 </div>
 </div>
-
-<script src="data.js"></script>
+<script src="data.js" defer></script>
 <script src="flashcard.js"></script>
 </body>
 </html>
