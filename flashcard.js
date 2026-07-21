@@ -1,133 +1,248 @@
-/*=========================================
- VietMiniApp
- flashcard.js
- Phiên bản 2.0
-=========================================*/
+//==============================
+// flashcard.js
+// Phần 1
+//==============================
+
+const params = new URLSearchParams(window.location.search);
+
+const lessonId = parseInt(params.get("id")) || 1;
+
+const lesson = LESSONS.find(l => l.id === lessonId);
+
+const words = VOCABULARY.filter(v => v.lesson === lessonId);
 
 let currentIndex = 0;
 
-// Lấy id bài học trên URL
-const params = new URLSearchParams(window.location.search);
-const lessonID = Number(params.get("id")) || 2;
+let showFront = true;
 
-// Chỉ lấy từ của bài học hiện tại
-let words = VOCABULARY.filter(item => item.lesson === lessonID);
+const lessonTitle = document.getElementById("lessonTitle");
+const lessonInfo = document.getElementById("lessonInfo");
 
-// Nếu chưa có dữ liệu thì dùng toàn bộ
-if(words.length === 0){
-    words = VOCABULARY;
-}
+const progressBar = document.getElementById("progressBar");
 
-// Hiển thị từ
-function showWord(){
+const vn = document.getElementById("vn");
+const cn = document.getElementById("cn");
+const pinyin = document.getElementById("pinyin");
+const example = document.getElementById("example");
 
-    const word = words[currentIndex];
+function initFlashcard(){
 
-    document.getElementById("front").innerHTML = `
-        <div>
-            <h2>${word.vn}</h2>
-        </div>
-    `;
+    if(!lesson){
 
-    document.getElementById("back").innerHTML = `
-        <div>
-            <h2>${word.cn}</h2>
-            <br>
-            <p>${word.pinyin}</p>
-            <br>
-            <small>${word.exampleVN}</small>
-        </div>
-    `;
+        lessonTitle.innerHTML="Không tìm thấy bài học";
 
-    document.getElementById("flash").classList.remove("flip");
+        lessonInfo.innerHTML="";
 
-}
-
-// Lật thẻ
-function flipCard(){
-
-    document
-        .getElementById("flash")
-        .classList.toggle("flip");
-
-}
-
-// Từ tiếp
-function nextWord(){
-
-    currentIndex++;
-
-    if(currentIndex >= words.length){
-
-        currentIndex = 0;
+        return;
 
     }
 
-    showWord();
+    lessonTitle.innerHTML = lesson.title;
 
-}
+    lessonInfo.innerHTML =
+        "Bài " + lessonId +
+        " • " +
+        words.length +
+        " từ vựng";
 
-// Từ trước
-function previousWord(){
+    if(words.length===0){
 
-    currentIndex--;
+        vn.innerHTML="Chưa có dữ liệu";
 
-    if(currentIndex < 0){
+        cn.innerHTML="";
 
-        currentIndex = words.length - 1;
+        pinyin.innerHTML="";
+
+        example.innerHTML="";
+
+        return;
 
     }
 
-    showWord();
+    renderCard();
 
 }
 
-// Phát âm
-function speakWord(){
+//==============================
+// Hiển thị Flashcard
+//==============================
 
-    const word = words[currentIndex];
+function renderCard(){
 
-    speechSynthesis.cancel();
+    const item = words[currentIndex];
 
-    const speech = new SpeechSynthesisUtterance(word.vn);
+    if(showFront){
 
-    speech.lang = "vi-VN";
+        // Mặt trước: Tiếng Việt
+        vn.innerHTML = item.vn;
 
-    speech.rate = 0.8;
+        cn.innerHTML = "";
 
-    speech.pitch = 1;
+        pinyin.innerHTML = "";
 
-    speechSynthesis.speak(speech);
-
-}
-
-// Lưu yêu thích
-function saveWord(){
-
-    const word = words[currentIndex].vn;
-
-    let favorites = JSON.parse(
-        localStorage.getItem("favorites")
-    ) || [];
-
-    if(!favorites.includes(word)){
-
-        favorites.push(word);
-
-        localStorage.setItem(
-            "favorites",
-            JSON.stringify(favorites)
-        );
-
-        alert("❤️ Đã lưu từ");
+        example.innerHTML = "";
 
     }else{
 
-        alert("Từ đã có trong danh sách.");
+        // Mặt sau: Tiếng Trung + Pinyin + Ví dụ
+        vn.innerHTML = item.vn;
+
+        cn.innerHTML = item.cn;
+
+        pinyin.innerHTML = item.pinyin;
+
+        example.innerHTML = `
+
+        <b>🇻🇳 Ví dụ:</b><br>
+
+        ${item.exampleVN}
+
+        <br><br>
+
+        <b>🇨🇳 示例：</b><br>
+
+        ${item.exampleCN}
+
+        `;
+
+    }
+
+    updateProgress();
+
+}
+
+//==============================
+// Thanh tiến độ
+//==============================
+
+function updateProgress(){
+
+    const percent =
+        ((currentIndex + 1) / words.length) * 100;
+
+    progressBar.style.width =
+        percent + "%";
+
+    lessonInfo.innerHTML =
+
+        "Bài " + lessonId +
+
+        " • Từ " +
+
+        (currentIndex + 1) +
+
+        "/" +
+
+        words.length;
+
+}
+
+//==============================
+// Lật thẻ
+//==============================
+
+function flipCard(){
+
+    showFront = !showFront;
+
+    renderCard();
+
+}
+
+//==============================
+// Từ tiếp theo
+//==============================
+
+function nextWord(){
+
+    if(currentIndex < words.length - 1){
+
+        currentIndex++;
+
+        showFront = true;
+
+        renderCard();
+
+    }else{
+
+        alert("Bạn đã học hết từ vựng của bài này.");
 
     }
 
 }
 
+//==============================
+// Từ trước
+//==============================
+
+function previousWord(){
+
+    if(currentIndex > 0){
+
+        currentIndex--;
+
+        showFront = true;
+
+        renderCard();
+
+    }
+
+}
+
+//==============================
+// Quay lại bài học
+//==============================
+
+function backLesson(){
+
+    window.location.href =
+        "lesson.html?id=" + lessonId;
+
+}
+
+//==============================
+// Trang chủ
+//==============================
+
+function goHome(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+//==============================
+// Hỗ trợ bàn phím
+//==============================
+
+document.addEventListener("keydown",function(e){
+
+    switch(e.key){
+
+        case "ArrowRight":
+            nextWord();
+            break;
+
+        case "ArrowLeft":
+            previousWord();
+            break;
+
+        case " ":
+        case "Enter":
+            e.preventDefault();
+            flipCard();
+            break;
+
+    }
+
+});
+
+//==============================
 // Khởi động
-showWord();
+//==============================
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    initFlashcard();
+
+});
