@@ -1,55 +1,257 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Bài học</title>
+<title>Học tiếng Việt</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link rel="stylesheet" href="lesson.css">
+<style>
+
+body{
+    margin:0;
+    background:#f5f5f5;
+    font-family:Arial,sans-serif;
+}
+
+header{
+    background:#2196F3;
+    color:#fff;
+    padding:15px;
+    text-align:center;
+}
+
+header h1{
+    margin:0;
+    font-size:24px;
+}
+
+header p{
+    margin-top:8px;
+    font-size:15px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:#fff;
+    border-radius:12px;
+    margin-bottom:18px;
+    padding:18px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.word{
+    font-size:26px;
+    color:#2196F3;
+    font-weight:bold;
+}
+
+.chinese{
+    margin-top:8px;
+    font-size:28px;
+}
+
+.pinyin{
+    margin-top:6px;
+    color:#888;
+}
+
+.example{
+    margin-top:15px;
+    background:#fafafa;
+    border-left:4px solid #2196F3;
+    padding:10px;
+}
+
+.progressBox{
+
+margin-bottom:20px;
+
+}
+
+.progress{
+
+height:10px;
+
+background:#ddd;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+.progressValue{
+
+height:100%;
+
+width:0;
+
+background:#4CAF50;
+
+}
+
+.buttonBar{
+
+display:flex;
+
+gap:10px;
+
+flex-wrap:wrap;
+
+margin-top:25px;
+
+}
+
+button{
+
+flex:1;
+
+padding:14px;
+
+border:none;
+
+border-radius:10px;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+.prev{
+
+background:#607D8B;
+
+color:white;
+
+}
+
+.next{
+
+background:#4CAF50;
+
+color:white;
+
+}
+
+.flash{
+
+background:#FF9800;
+
+color:white;
+
+}
+
+.quiz{
+
+background:#9C27B0;
+
+color:white;
+
+}
+
+.home{
+
+background:#2196F3;
+
+color:white;
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-<header class="header">
+<header>
 
-<div class="logo">
-
-🇻🇳 VietMiniApp
-
-</div>
-
-<div class="subtitle" id="lessonTitle">
-
+<h1 id="lessonTitle">
 Đang tải...
+</h1>
 
-</div>
+<p id="lessonDescription"></p>
 
 </header>
 
-<main class="lesson">
+<div class="container">
+
+<div class="progressBox">
+
+<div class="progress">
+
+<div
+id="progressBar"
+class="progressValue">
+</div>
+
+</div>
+
+<p id="progressText"></p>
+
+</div>
 
 <div id="lessonContent">
 
 </div>
 
-<div class="bottomButton">
+<div class="buttonBar">
 
-<button onclick="nextLesson()">
+<button
+class="prev"
+onclick="previousLesson()">
 
-➡ Bài tiếp
+⬅ Bài trước
+
+</button>
+
+<button
+class="next"
+onclick="nextLesson()">
+
+Bài tiếp ➜
 
 </button>
 
 </div>
 
-</main>
+<div class="buttonBar">
+
+<button
+class="flash"
+onclick="openFlashcard()">
+
+Flashcard
+
+</button>
+
+<button
+class="quiz"
+onclick="openQuiz()">
+
+Quiz
+
+</button>
+
+<button
+class="home"
+onclick="goHome()">
+
+Trang chủ
+
+</button>
+
+</div>
+
+</div>
 
 <script src="data.js"></script>
 
