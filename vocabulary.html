@@ -10,28 +10,7 @@
 max-width:900px;
 margin:20px auto;
 padding:20px;
-}
-#search{
-width:100%;
-padding:15px;
-font-size:18px;
-border-radius:12px;
-border:1px solid #ddd;
-margin-bottom:20px;
-}
-.word{
-background:white;
-padding:20px;
-border-radius:18px;
-margin-bottom:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-.word h2{
-color:#00b894;
-margin-bottom:10px;
-}
-.word p{
-margin:6px 0;
+position:relative;
 }
 .action{
 margin-top:15px;
@@ -40,32 +19,24 @@ gap:10px;
 flex-wrap:wrap;
 }
 .action button{
-padding:10px 20px;
+flex:1;
 }
 </style>
 </head>
 <body>
 <header class="header">
-<div class="logo">
-📖 Từ vựng
-</div>
-<div class="subtitle">
-Danh sách từ vựng
-</div>
+<button class="lang-switch" onclick="switchLang()">
+<span id="langBtn"></span>
+</button>
+<div class="logo">📖 Từ vựng</div>
+<div class="subtitle" id="subTitle">Danh sách từ vựng</div>
 </header>
 <div class="searchBox">
-<input
-id="search"
-type="text"
-placeholder="Nhập từ cần tìm..."
-onkeyup="searchWord()">
-<div id="list">
+<input id="search" type="text" placeholder="" onkeyup="searchWord()">
+<div id="list"></div>
+<button onclick="location.href='index.html'">🏠 <span id="txtHome"></span></button>
 </div>
-<button onclick="location.href='index.html'">
-🏠 Trang chủ
-</button>
-</div>
-<!-- 脚本全部放body最后，无defer -->
+
 <script src="data.js"></script>
 <script src="vocabulary.js"></script>
 </body>
