@@ -1,8 +1,6 @@
 /*========================================
-  data.js
-  Giáo trình Tiếng Việt A1
+  data.js 完整版｜双语+全局语音+兼容修复
 ========================================*/
-// 兼容旧浏览器，改用var，并挂载window全局
 var LESSONS = [
 {
 id:1,
@@ -912,9 +910,91 @@ exampleCN:"请读这些数字。"
 },
 ];
 
-// 挂载到全局window，解决file跨文件读取不到变量
+// 挂载全局，解决本地file读取失败
 window.LESSONS = LESSONS;
 window.VOCABULARY = VOCABULARY;
 
-// 调试日志，方便排查加载状态
-console.log("data.js đã load thành công | Tổng bài:", LESSONS.length, "Tổng từ vựng:", VOCABULARY.length);
+// ========== 全局语音朗读函数（全页面共用）==========
+window.readVoice = function(text){
+    window.speechSynthesis.cancel();
+    const voice = new SpeechSynthesisUtterance(text);
+    voice.lang = "vi-VN";
+    voice.rate = 0.78;
+    voice.pitch = 1.02;
+    voice.volume = 1;
+    window.speechSynthesis.speak(voice);
+}
+
+// ========== 双语文本库 VI / CN ==========
+window.LANG = {
+    vi:{
+        switchLang:"Chuyển ngôn ngữ",
+        home:"Trang chủ",
+        course:"Khóa học",
+        vocab:"Từ vựng",
+        flashcard:"Thẻ nhớ",
+        quiz:"Bài kiểm tra",
+        listen:"Luyện nghe",
+        speak:"Luyện nói",
+        fav:"Từ yêu thích",
+        progress:"Tiến độ",
+        setting:"Cài đặt",
+        search:"Nhập từ cần tìm...",
+        noWord:"Không tìm thấy từ vựng.",
+        listen:"Nghe",
+        save:"Lưu yêu thích",
+        prev:"Bài trước",
+        next:"Bài tiếp",
+        flip:"Lật thẻ",
+        empty:"Bạn chưa lưu từ nào.",
+        del:"Xóa",
+        check:"Kiểm tra đáp án",
+        restart:"Làm lại",
+        backLesson:"Quay lại bài học",
+        dataErr:"Dữ liệu tải thất bại, vui lòng làm mới trang!",
+        finishQuiz:"Hoàn thành",
+        perfect:"Xuất sắc!",
+        good:"Khá tốt!",
+        needReview:"Hãy ôn tập thêm nhé!"
+    },
+    cn:{
+        switchLang:"切换语言",
+        home:"首页",
+        course:"课程",
+        vocab:"词汇",
+        flashcard:"记忆卡片",
+        quiz:"测试",
+        listen:"听力练习",
+        speak:"口语练习",
+        fav:"收藏单词",
+        progress:"学习进度",
+        setting:"设置",
+        search:"输入要查找的单词...",
+        noWord:"未查询到词汇",
+        listen:"朗读",
+        save:"收藏",
+        prev:"上一课",
+        next:"下一课",
+        flip:"翻转卡片",
+        empty:"你还没有收藏单词",
+        del:"删除",
+        check:"核对答案",
+        restart:"重新做题",
+        backLesson:"返回课程",
+        dataErr:"数据加载失败，请刷新页面！",
+        finishQuiz:"完成测试",
+        perfect:"太棒了！",
+        good:"不错！",
+        need:"需要多加复习"
+    }
+}
+
+// 获取当前语言
+window.getLang = function(){
+    return localStorage.getItem("lang") || "vi";
+}
+// 切换语言
+window.setLang = function(l){
+    localStorage.setItem("lang", l);
+    location.reload();
+}
