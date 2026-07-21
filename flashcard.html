@@ -6,124 +6,60 @@
 <title>Flashcard</title>
 <link rel="stylesheet" href="style.css">
 <style>
-body{
-margin:0;
-padding:0;
-background:#f5f5f5;
-font-family:Arial,sans-serif;
-}
 header{
-background:#4CAF50;
+background:linear-gradient(135deg,#4CAF50,#388e3c);
 color:white;
-padding:18px;
-text-align:center;
-}
-header h1{
-margin:0;
-font-size:28px;
-}
-header p{
-margin-top:8px;
-font-size:16px;
-}
-.container{
-max-width:900px;
-margin:auto;
 padding:20px;
-}
-.progress{
-height:10px;
-background:#ddd;
-border-radius:20px;
-overflow:hidden;
-margin-bottom:20px;
-}
-.progressBar{
-height:100%;
-width:0%;
-background:#4CAF50;
-transition:.3s;
-}
-.card{
-background:white;
-border-radius:16px;
-padding:35px;
-box-shadow:0 3px 12px rgba(0,0,0,.12);
 text-align:center;
-min-height:340px;
-display:flex;
-flex-direction:column;
-justify-content:center;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+position:relative;
 }
-.word{
-font-size:34px;
-font-weight:bold;
-color:#2196F3;
-}
-.cn{
-font-size:42px;
-margin-top:18px;
-}
-.pinyin{
-margin-top:10px;
-font-size:22px;
-color:#888;
-}
-.example{
-margin-top:25px;
-padding:15px;
-background:#fafafa;
-border-left:5px solid #4CAF50;
-text-align:left;
-}
-.buttons{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-top:25px;
-}
-button{
-flex:1;
-padding:15px;
-font-size:16px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-}
-.flip{background:#FF9800;color:white;}
-.prev{background:#607D8B;color:white;}
-.next{background:#4CAF50;color:white;}
-.lesson{background:#2196F3;color:white;}
-.home{background:#9C27B0;color:white;}
+.container{max-width:900px;margin:auto;padding:20px;}
+.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;}
+.buttons button{flex:1;min-width:120px;}
 </style>
 </head>
 <body>
 <header>
-<h1 id="lessonTitle">Flashcard</h1>
-<p id="lessonInfo">Sẵn sàng học</p>
+<button class="lang-switch" onclick="switchLang()">
+<span id="langBtn"></span>
+</button>
+<h1 id="lessonTitle">Flashcard Học Từ</h1>
+<p id="lessonInfo">Ôn tập thẻ từ vựng</p>
 </header>
 <div class="container">
 <div class="progress">
 <div id="progressBar" class="progressBar"></div>
 </div>
-<div id="flashcard" class="card">
-<div class="word" id="vn"></div>
-<div class="cn" id="cn"></div>
-<div class="pinyin" id="pinyin"></div>
+
+<div class="flashcard">
+<div class="flash-wrap" id="flipWrap">
+<div class="front">
+<div class="wordVN" id="vn">Từ tiếng Việt</div>
+</div>
+<div class="back">
+<div class="wordVN" id="vnBack"></div>
+<div class="wordCN" id="cn"></div>
+<div class="wordPY" id="pinyin"></div>
 <div class="example" id="example"></div>
 </div>
+</div>
+</div>
+
 <div class="buttons">
-<button class="flip" onclick="flipCard()">🔄 Lật thẻ</button>
+<button class="speak" onclick="readVoice(document.getElementById('vn').innerText)">🔊 <span id="txtListen"></span></button>
+<button class="flip" onclick="flipCard()">🔄 <span id="txtFlip"></span></button>
 </div>
 <div class="buttons">
-<button class="prev" onclick="previousWord()">⬅ Từ trước</button>
-<button class="next" onclick="nextWord()">Từ tiếp ➜</button>
+<button class="prev" onclick="previousWord()">⬅ <span id="txtPrev"></span></button>
+<button class="next" onclick="nextWord()">➡ <span id="txtNext"></span></button>
 </div>
 <div class="buttons">
-<button class="lesson" onclick="backLesson()">📖 Quay lại bài học</button>
-<button class="home" onclick="goHome()">🏠 Trang chủ</button>
+<button onclick="backLesson()">📖 <span id="txtBackLesson"></span></button>
+<button onclick="goHome()">🏠 <span id="txtHome"></span></button>
 </div>
 </div>
+
 <script src="data.js"></script>
 <script src="flashcard.js"></script>
 </body>
