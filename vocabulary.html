@@ -3,25 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Từ vựng</title>
+<title>Từ vựng | 词汇</title>
 <link rel="stylesheet" href="style.css">
-<style>
-.searchBox{
-max-width:900px;
-margin:20px auto;
-padding:20px;
-position:relative;
-}
-.action{
-margin-top:15px;
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-}
-.action button{
-flex:1;
-}
-</style>
 </head>
 <body>
 <header class="header">
@@ -29,15 +12,18 @@ flex:1;
 <span id="langBtn"></span>
 </button>
 <div class="logo">📖 Từ vựng</div>
-<div class="subtitle" id="subTitle">Danh sách từ vựng</div>
+<div class="subtitle" id="subTitle"></div>
 </header>
+<div class="container">
 <div class="searchBox">
-<input id="search" type="text" placeholder="" onkeyup="searchWord()">
+<input id="search" class="search" placeholder="" onkeyup="searchWord()">
 <div id="list"></div>
-<button onclick="location.href='index.html'">🏠 <span id="txtHome"></span></button>
+<div class="button-group">
+<button class="primary" onclick="location.href='index.html'">🏠 <span id="txtHome"></span></button>
 </div>
-
-<script src="data.js"></script>
-<script src="vocabulary.js"></script>
+</div>
+</div>
+<script src="data.js" defer></script>
+<script src="vocabulary.js" defer></script>
 </body>
 </html>
