@@ -1,87 +1,215 @@
-const params=new URLSearchParams(window.location.search);
+//==============================
+// lesson.js
+// Phần 1
+//==============================
 
-const lessonID=Number(params.get("id"))||1;
+const params = new URLSearchParams(window.location.search);
 
-const lesson = LESSONS.find(
-x=>x.id==lessonID
-);
+let lessonId = parseInt(params.get("id")) || 1;
 
-document.getElementById("lessonTitle").innerHTML=lesson.title;
+let lesson =
+    LESSONS.find(l => l.id === lessonId);
 
-let html="";
+let words =
+    VOCABULARY.filter(v => v.lesson === lessonId);
 
-VOCABULARY
-.filter(x=>x.lesson===lessonID)
-.forEach(word=>{
+const lessonTitle =
+    document.getElementById("lessonTitle");
 
-html+=`
+const lessonDescription =
+    document.getElementById("lessonDescription");
 
-<div class="wordCard">
+const lessonContent =
+    document.getElementById("lessonContent");
 
-<div class="wordVN">
+const progressBar =
+    document.getElementById("progressBar");
 
-${word.vn}
+const progressText =
+    document.getElementById("progressText");
 
-</div>
+function initLesson(){
 
-<div class="wordCN">
+    if(!lesson){
 
-${word.cn}
+        lessonContent.innerHTML=`
 
-</div>
+        <div class="card">
 
-<div class="wordPY">
+            <h2>Không tìm thấy bài học</h2>
 
-${word.pinyin}
+        </div>
 
-</div>
+        `;
 
-<div class="example">
+        return;
 
-<b>Ví dụ</b>
+    }
 
-<br><br>
+    lessonTitle.innerHTML=
+        lesson.title;
 
-${word.exampleVN}
+    lessonDescription.innerHTML=
+        lesson.description;
 
-<br>
+    renderVocabulary();
 
-${word.exampleCN}
+    updateProgress();
 
-</div>
+}
 
-<div class="buttonGroup">
+//==============================
+// Hiển thị từ vựng
+//==============================
 
-<button onclick="speak('${word.vn}')">
+function renderVocabulary(){
 
-🔊 Phát âm
+    lessonContent.innerHTML = "";
 
-</button>
+    if(words.length===0){
 
-<button onclick="addFavorite('${word.vn}')">
+        lessonContent.innerHTML=`
 
-❤️ Lưu
+        <div class="card">
 
-</button>
+            <h2>Chưa có dữ liệu bài học.</h2>
 
-</div>
+        </div>
 
-</div>
+        `;
 
-`;
+        return;
 
-});
+    }
 
-document.getElementById("lessonContent").innerHTML=html;
+    words.forEach((item,index)=>{
 
-saveCurrentLesson(
+        lessonContent.innerHTML += `
 
-"lesson.html?id="+lessonID
+        <div class="card">
 
-);
+            <div class="word">
+
+                ${index+1}. ${item.vn}
+
+            </div>
+
+            <div class="chinese">
+
+                ${item.cn}
+
+            </div>
+
+            <div class="pinyin">
+
+                ${item.pinyin}
+
+            </div>
+
+            <div class="example">
+
+                <b>🇻🇳 Ví dụ:</b><br>
+
+                ${item.exampleVN}
+
+                <br><br>
+
+                <b>🇨🇳 示例：</b><br>
+
+                ${item.exampleCN}
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+//==============================
+// Cập nhật tiến độ
+//==============================
+
+function updateProgress(){
+
+    const total = LESSONS.length;
+
+    const percent = (lessonId / total) * 100;
+
+    progressBar.style.width = percent + "%";
+
+    progressText.innerHTML =
+        "Bài " + lessonId + " / " + total;
+
+}
+
+//==============================
+// Điều hướng bài học
+//==============================
+
+function previousLesson(){
+
+    if(lessonId>1){
+
+        window.location.href =
+            "lesson.html?id=" + (lessonId-1);
+
+    }
+
+}
 
 function nextLesson(){
 
-location.href="lesson.html?id="+(lessonID+1);
+    if(lessonId<LESSONS.length){
+
+        window.location.href =
+            "lesson.html?id=" + (lessonId+1);
+
+    }
 
 }
+
+//==============================
+// Flashcard
+//==============================
+
+function openFlashcard(){
+
+    window.location.href =
+        "flashcard.html?id=" + lessonId;
+
+}
+
+//==============================
+// Quiz
+//==============================
+
+function openQuiz(){
+
+    window.location.href =
+        "quiz.html?id=" + lessonId;
+
+}
+
+//==============================
+// Trang chủ
+//==============================
+
+function goHome(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+//==============================
+// Khởi động
+//==============================
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    initLesson();
+
+});
