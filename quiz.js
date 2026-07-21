@@ -1,83 +1,402 @@
-/*=================================
- VietMiniApp
- Quiz
-=================================*/
+//==============================
+// quiz.js
+// Phần 1
+//==============================
+
+const params = new URLSearchParams(window.location.search);
+
+const lessonId = parseInt(params.get("id")) || 1;
+
+const lesson = LESSONS.find(l => l.id === lessonId);
+
+const words = VOCABULARY.filter(v => v.lesson === lessonId);
+
+let questions = [];
+
+let currentQuestion = 0;
 
 let score = 0;
 
-let current;
+let selectedAnswer = null;
 
-function randomQuestion(){
+let answered = false;
 
-    current = VOCABULARY[
-        Math.floor(Math.random()*VOCABULARY.length)
-    ];
+const lessonTitle = document.getElementById("lessonTitle");
+const quizInfo = document.getElementById("quizInfo");
 
-    document.getElementById("question").innerHTML =
-    current.vn;
+const questionNumber = document.getElementById("questionNumber");
+const question = document.getElementById("question");
+const answers = document.getElementById("answers");
 
-    let options = [];
+const progressBar = document.getElementById("progressBar");
 
-    options.push(current.cn);
+const result = document.getElementById("result");
 
-    while(options.length<4){
+//==============================
+// Khởi tạo Quiz
+//==============================
 
-        let w = VOCABULARY[
-        Math.floor(Math.random()*VOCABULARY.length)
-        ];
+function initQuiz(){
 
-        if(!options.includes(w.cn)){
+    if(!lesson){
 
-            options.push(w.cn);
+        lessonTitle.innerHTML = "Không tìm thấy bài học";
+
+        return;
+
+    }
+
+    lessonTitle.innerHTML = lesson.title;
+
+    quizInfo.innerHTML =
+        "Bài " + lessonId +
+        " • " +
+        words.length +
+        " câu hỏi";
+
+    createQuestions();
+
+    showQuestion();
+
+}
+
+//==============================
+// Tạo câu hỏi
+//==============================
+
+function createQuestions(){
+
+    questions = [];
+
+    words.forEach(word=>{
+
+        let options = [word.cn];
+
+        while(options.length < 4){
+
+            let random =
+                VOCABULARY[
+                    Math.floor(
+                        Math.random() *
+                        VOCABULARY.length
+                    )
+                ].cn;
+
+            if(!options.includes(random)){
+
+                options.push(random);
+
+            }
 
         }
 
-    }
+        options.sort(()=>Math.random()-0.5);
 
-    options.sort(()=>Math.random()-0.5);
+        questions.push({
 
-    let html="";
+            vn:word.vn,
 
-    options.forEach(option=>{
+            answer:word.cn,
 
-        html+=`
+            options:options
 
-<button
-style="width:100%;margin:10px 0;padding:15px"
-onclick="checkAnswer('${option}')">
-
-${option}
-
-</button>
-
-`;
+        });
 
     });
 
-    document.getElementById("answers").innerHTML=html;
+}
+
+//==============================
+// Hiển thị câu hỏi
+//==============================
+
+function showQuestion(){
+
+answered = false;
+selectedAnswer = null;
+
+    const q = questions[currentQuestion];
+
+    questionNumber.innerHTML =
+        "Câu " +
+        (currentQuestion + 1) +
+        " / " +
+        questions.length;
+
+    question.innerHTML = q.vn;
+
+    answers.innerHTML = "";
+
+    q.options.forEach(option=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className = "answer";
+
+        div.innerHTML = option;
+
+        div.onclick = function(){
+
+            document
+                .querySelectorAll(".answer")
+                .forEach(item=>{
+
+                    item.classList.remove("selected");
+
+                });
+
+            div.classList.add("selected");
+
+            selectedAnswer = option;
+
+        };
+
+        answers.appendChild(div);
+
+    });
+
+    updateProgress();
+
+    result.innerHTML = "";
 
 }
 
-function checkAnswer(answer){
+//==============================
+// Thanh tiến độ
+//==============================
 
-    if(answer==current.cn){
+function updateProgress(){
 
-        alert("✅ Chính xác");
+    const percent =
+        ((currentQuestion + 1) /
+        questions.length) * 100;
 
-        score++;
+    progressBar.style.width =
+        percent + "%";
 
-        localStorage.setItem("score",score);
+}
 
-    }else{
+//==============================
+// Kiểm tra đáp án
+//==============================
 
-        alert("❌ Sai\nĐáp án đúng: "+current.cn);
+function checkAnswer(){
+
+    if(answered){
+
+        return;
 
     }
 
-    document.getElementById("score").innerHTML=score;
+    if(selectedAnswer === null){
 
-    randomQuestion();
+        alert("Vui lòng chọn một đáp án.");
+
+        return;
+
+    }
+
+    answered = true;
+
+    const q = questions[currentQuestion];
+
+    const items = document.querySelectorAll(".answer");
+
+    items.forEach(item=>{
+
+        item.style.pointerEvents = "none";
+
+        if(item.innerHTML === q.answer){
+
+            item.classList.add("correct");
+
+        }
+
+        if(
+            item.innerHTML === selectedAnswer &&
+            selectedAnswer !== q.answer
+        ){
+
+            item.classList.add("wrong");
+
+        }
+
+    });
+
+    if(selectedAnswer === q.answer){
+
+        score++;
+
+        result.innerHTML="✅ Chính xác";
+
+        result.style.color="#4CAF50";
+
+    }else{
+
+        result.innerHTML=
+        "❌ Đáp án đúng: " + q.answer;
+
+        result.style.color="#F44336";
+
+    }
 
 }
 
-randomQuestion();
+//==============================
+// Câu tiếp theo
+//==============================
+
+function nextQuestion(){
+
+    if(currentQuestion < questions.length - 1){
+
+        currentQuestion++;
+
+        showQuestion();
+
+    }else{
+
+        showFinalResult();
+
+    }
+
+}
+
+//==============================
+// Câu trước
+//==============================
+
+function previousQuestion(){
+
+    if(currentQuestion > 0){
+
+        currentQuestion--;
+
+        showQuestion();
+
+    }
+
+}
+
+//==============================
+// Kết quả cuối bài
+//==============================
+
+function showFinalResult(){
+
+    const percent =
+        Math.round((score / questions.length) * 100);
+
+    questionNumber.innerHTML = "Hoàn thành";
+
+    question.innerHTML =
+        "Bạn trả lời đúng " +
+        score +
+        "/" +
+        questions.length +
+        " câu.";
+
+    answers.innerHTML = "";
+
+    result.innerHTML =
+        "Điểm: " + percent + "%";
+
+    if(percent >= 80){
+
+        result.style.color = "#4CAF50";
+
+        result.innerHTML +=
+            "<br>🎉 Xuất sắc!";
+
+    }else if(percent >= 60){
+
+        result.style.color = "#FF9800";
+
+        result.innerHTML +=
+            "<br>👍 Khá tốt!";
+
+    }else{
+
+        result.style.color = "#F44336";
+
+        result.innerHTML +=
+            "<br>📚 Hãy ôn tập thêm nhé!";
+
+    }
+
+    progressBar.style.width = "100%";
+
+}
+
+//==============================
+// Làm lại
+//==============================
+
+function restartQuiz(){
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    createQuestions();
+
+    showQuestion();
+
+}
+
+//==============================
+// Quay lại bài học
+//==============================
+
+function backLesson(){
+
+    window.location.href =
+        "lesson.html?id=" + lessonId;
+
+}
+
+//==============================
+// Trang chủ
+//==============================
+
+function goHome(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+//==============================
+// Điều khiển bằng bàn phím
+//==============================
+
+document.addEventListener("keydown",function(e){
+
+    switch(e.key){
+
+        case "ArrowLeft":
+            previousQuestion();
+            break;
+
+        case "ArrowRight":
+            nextQuestion();
+            break;
+
+        case "Enter":
+            checkAnswer();
+            break;
+
+    }
+
+});
+
+//==============================
+// Khởi động
+//==============================
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    initQuiz();
+
+});
