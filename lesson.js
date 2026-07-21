@@ -2,20 +2,25 @@
 // lesson.js
 // Phần 1
 //==============================
-if (typeof LESSONS === "undefined" || typeof VOCABULARY === "undefined") {
-  alert("Dữ liệu bài học lỗi, vui lòng tải lại trang");
-}
+let lessonId = 1;
+let lesson = null;
+let words = [];
 
-const params = new URLSearchParams(window.location.search);
-let rawId = params.get("id");
-let lessonId = parseInt(rawId);
-// Xử lý id không hợp lệ
-if (isNaN(lessonId) || lessonId < 1 || lessonId > LESSONS.length) {
-  lessonId = 1;
-}
-
-let lesson = LESSONS.find(l => l.id === lessonId);
-let words = VOCABULARY.filter(v => v.lesson === lessonId);
+document.addEventListener("DOMContentLoaded",function(){
+    if (typeof LESSONS === "undefined" || typeof VOCABULARY === "undefined") {
+        alert("Dữ liệu bài học lỗi, vui lòng làm mới trang");
+        return;
+    }
+    const params = new URLSearchParams(window.location.search);
+    let rawId = params.get("id");
+    let tempId = parseInt(rawId);
+    if (!isNaN(tempId) && tempId >= 1 && tempId <= LESSONS.length) {
+        lessonId = tempId;
+    }
+    lesson = LESSONS.find(l => l.id === lessonId);
+    words = VOCABULARY.filter(v => v.lesson === lessonId);
+    initLesson();
+});
 
 const lessonTitle = document.getElementById("lessonTitle");
 const lessonDescription = document.getElementById("lessonDescription");
@@ -37,9 +42,7 @@ function initLesson(){
     renderVocabulary();
     updateProgress();
 }
-//==============================
-// Hiển thị từ vựng
-//==============================
+
 function renderVocabulary(){
     lessonContent.innerHTML = "";
     if(words.length===0){
@@ -51,40 +54,27 @@ function renderVocabulary(){
         return;
     }
     words.forEach((item,index)=>{
-        lessonContent.innerHTML += `
+        lessonContent += `
         <div class="card">
-            <div class="word">
-                ${index+1}. ${item.vn}
-            </div>
-            <div class="chinese">
-                ${item.cn}
-            </div>
-            <div class="pinyin">
-                ${item.pinyin}
-            </div>
+            <div class="word">${index+1}. ${item.vn}</div>
+            <div class="chinese">${item.cn}</div>
+            <div class="pinyin">${item.pinyin}</div>
             <div class="example">
-                <b>🇻🇳 Ví dụ:</b><br>
-                ${item.exampleVN}
-                <br><br>
-                <b>🇨🇳 示例：</b><br>
-                ${item.exampleCN}
+                <b>🇻🇳 Ví dụ:</b><br>${item.vn}<br><br>
+                <b>🇨🇳 示例：</b><br>${item.exampleCN}
             </div>
         </div>
         `;
     });
 }
-//==============================
-// Cập nhật tiến độ
-//==============================
+
 function updateProgress(){
     const total = LESSONS.length;
     const percent = (lessonId / total) * 100;
     progressBar.style.width = percent + "%";
     progressText.innerHTML = "Bài " + lessonId + " / " + total;
 }
-//==============================
-// Điều hướng bài học
-//==============================
+
 function previousLesson(){
     if(lessonId>1){
         window.location.href = "lesson.html?id=" + (lessonId-1);
@@ -95,27 +85,12 @@ function nextLesson(){
         window.location.href = "lesson.html?id=" + (lessonId+1);
     }
 }
-//==============================
-// Flashcard
-//==============================
 function openFlashcard(){
     window.location.href = "flashcard.html?id=" + lessonId;
 }
-//==============================
-// Quiz
-//==============================
 function openQuiz(){
     window.location.href = "quiz.html?id=" + lessonId;
 }
-//==============================
-// Trang chủ
-//==============================
 function goHome(){
     window.location.href = "index.html";
 }
-//==============================
-// Khởi động
-//==============================
-document.addEventListener("DOMContentLoaded",function(){
-    initLesson();
-});
