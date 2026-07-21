@@ -5,69 +5,330 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Quiz</title>
 
 <link rel="stylesheet" href="style.css">
 
+<style>
+
+body{
+
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+
+}
+
+header{
+
+background:#9C27B0;
+color:white;
+text-align:center;
+padding:20px;
+
+}
+
+header h1{
+
+margin:0;
+font-size:30px;
+
+}
+
+header p{
+
+margin-top:8px;
+font-size:16px;
+
+}
+
+.container{
+
+max-width:900px;
+margin:auto;
+padding:20px;
+
+}
+
+.progress{
+
+height:10px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+margin-bottom:20px;
+
+}
+
+.progressBar{
+
+height:100%;
+width:0%;
+background:#9C27B0;
+transition:.3s;
+
+}
+
+.card{
+
+background:white;
+padding:25px;
+border-radius:16px;
+box-shadow:0 3px 10px rgba(0,0,0,.12);
+
+}
+
+.questionNumber{
+
+font-size:15px;
+color:#666;
+margin-bottom:10px;
+
+}
+
+.question{
+
+font-size:28px;
+font-weight:bold;
+color:#2196F3;
+margin-bottom:25px;
+
+}
+
+.answers{
+
+display:flex;
+flex-direction:column;
+gap:15px;
+
+}
+
+.answer{
+
+padding:15px;
+border-radius:10px;
+border:2px solid #ddd;
+cursor:pointer;
+background:white;
+transition:.25s;
+
+}
+
+.answer:hover{
+
+background:#f3f3f3;
+
+}
+
+.answer.correct{
+
+background:#C8E6C9;
+border-color:#4CAF50;
+
+}
+
+.answer.wrong{
+
+background:#FFCDD2;
+border-color:#F44336;
+
+}
+
+.buttons{
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:25px;
+
+}
+
+button{
+
+flex:1;
+padding:14px;
+font-size:16px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+
+}
+
+.check{
+
+background:#4CAF50;
+color:white;
+
+}
+
+.prev{
+
+background:#607D8B;
+color:white;
+
+}
+
+.next{
+
+background:#2196F3;
+color:white;
+
+}
+
+.reset{
+
+background:#FF9800;
+color:white;
+
+}
+
+.lesson{
+
+background:#009688;
+color:white;
+
+}
+
+.home{
+
+background:#673AB7;
+color:white;
+
+}
+
+.result{
+
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-<header class="header">
+<header>
 
-<div class="logo">
+<h1 id="lessonTitle">
 
-📝 Quiz
+Bài kiểm tra
 
-</div>
+</h1>
 
-<div class="subtitle">
+<p id="quizInfo">
 
-Ôn tập từ vựng
+Chọn đáp án đúng
 
-</div>
+</p>
 
 </header>
 
 <div class="container">
 
-<div class="card">
+<div class="progress">
 
-<h2 id="question">
-
-Đang tải...
-
-</h2>
-
-<div id="answers">
+<div
+id="progressBar"
+class="progressBar">
 
 </div>
 
 </div>
 
-<div class="card">
+<div
+class="card">
 
-<p>
-
-Điểm:
-
-<b id="score">
-
-0
-
-</b>
-
-</p>
+<div
+id="questionNumber"
+class="questionNumber">
 
 </div>
 
-<button onclick="location.href='index.html'">
+<div
+id="question"
+class="question">
+
+</div>
+
+<div
+id="answers"
+class="answers">
+
+</div>
+
+<div class="buttons">
+
+<button
+class="check"
+onclick="checkAnswer()">
+
+✔ Kiểm tra
+
+</button>
+
+</div>
+
+<div class="buttons">
+
+<button
+class="prev"
+onclick="previousQuestion()">
+
+⬅ Câu trước
+
+</button>
+
+<button
+class="next"
+onclick="nextQuestion()">
+
+Câu tiếp ➜
+
+</button>
+
+</div>
+
+<div
+id="result"
+class="result">
+
+</div>
+
+<div class="buttons">
+
+<button
+class="reset"
+onclick="restartQuiz()">
+
+🔄 Làm lại
+
+</button>
+
+<button
+class="lesson"
+onclick="backLesson()">
+
+📖 Quay lại bài học
+
+</button>
+
+<button
+class="home"
+onclick="goHome()">
 
 🏠 Trang chủ
 
 </button>
+
+</div>
 
 </div>
 
