@@ -55,57 +55,39 @@ color:#999;
 </head>
 <body>
 <header class="header">
-<div class="logo">
-❤️ Từ đã lưu
-</div>
-<div class="subtitle">
-Ôn tập mọi lúc
-</div>
+<div class="logo">❤️ Từ đã lưu</div>
+<div class="subtitle">Ôn tập mọi lúc</div>
 </header>
 <div class="container">
-<input
-class="search"
-id="search"
-placeholder="Tìm từ..."
-onkeyup="searchWord()">
+<input class="search" id="search" placeholder="Tìm từ..." onkeyup="searchWord()">
 <div id="list"></div>
 </div>
-<script src="data.js" defer></script>
+<script src="data.js"></script>
 <script>
 let favorites = [];
-// Xử lý JSON lỗi
-try{
-  const raw = localStorage.getItem("favorites");
-  if(raw) favorites = JSON.parse(raw);
-}catch(err){
-  localStorage.removeItem("favorites");
-}
-
+document.addEventListener("DOMContentLoaded",function(){
+    try{
+        const raw = localStorage.getItem("favorites");
+        if(raw) favorites = JSON.parse(raw);
+    }catch(err){
+        localStorage.removeItem("favorites");
+    }
+    render();
+});
 function render(){
 let html="";
 if(favorites.length===0){
-html=`
-<div class="empty">
-Bạn chưa lưu từ nào.
-</div>
-`;
+html=`<div class="empty">Bạn chưa lưu từ nào.</div>`;
 }
 favorites.forEach(word=>{
 html+=`
 <div class="word">
-<div class="vn">
-${word}
-</div>
+<div class="vn">${word}</div>
 <div class="buttons">
-<button onclick="speech('${word}')">
-🔊 Nghe
-</button>
-<button onclick="removeWord('${word}')">
-❌ Xóa
-</button>
+<button onclick="speech('${word}')">🔊 Nghe</button>
+<button onclick="removeWord('${word}')">❌ Xóa</button>
 </div>
-</div>
-`;
+</div>`;
 });
 document.getElementById("list").innerHTML=html;
 }
@@ -115,7 +97,7 @@ s.lang="vi-VN";
 speechSynthesis.speak(s);
 }
 function removeWord(word){
-favorites=favorites.filter(x=>x!=word);
+favorites=favorites.filter(x=>x!==word);
 localStorage.setItem("favorites",JSON.stringify(favorites));
 render();
 }
@@ -127,7 +109,6 @@ let text=cards[i].innerText.toLowerCase();
 cards[i].style.display=text.includes(keyword)?"block":"none";
 }
 }
-render();
 </script>
 </body>
 </html>
