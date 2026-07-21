@@ -1,690 +1,213 @@
 /*=========================================
- VietMiniApp
- style.css
- Phiên bản 2.0
+ VietMiniApp 双语美化完整版 style.css
 =========================================*/
-
-/* Reset */
-
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
-
 body{
-
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-
     background:#f5f7fb;
-
     color:#333;
-
     line-height:1.6;
-
 }
-
-/* Header */
-
+/* 头部渐变+语言切换按钮 */
 .header{
-
-    background:#00b894;
-
+    background:linear-gradient(135deg,#00b894,#00a884);
     color:white;
-
     text-align:center;
-
     padding:30px 20px;
-
+    position:relative;
+    box-shadow:0 4px 12px rgba(0,0,0.1);
 }
-
+.lang-switch{
+    position:absolute;
+    right:20px;
+    top:20px;
+    padding:8px 14px;
+    background:#fff3;
+    border-radius:30px;
+    border:1px solid #fff8;
+    color:white;
+    cursor:pointer;
+}
 .logo{
-
-    font-size:32px;
-
+    font-size:36px;
     font-weight:bold;
-
+    letter-spacing:1px;
 }
-
 .subtitle{
-
     margin-top:10px;
-
     font-size:16px;
-
-    opacity:.9;
-
+    opacity:.92;
 }
-
-/* Container */
-
 .container{
-
     max-width:900px;
-
     margin:auto;
-
     padding:20px;
-
 }
-
-/* Welcome */
-
-.welcome{
-
+/* 通用卡片悬浮动效 */
+.card, .word, .wordCard, .menuItem{
     background:white;
-
-    border-radius:20px;
-
-    padding:25px;
-
+    border-radius:22px;
+    padding:24px;
     margin-bottom:20px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
+    box-shadow:0 6px 18px rgba(0,0,0.07);
+    transition: all 0.3s cubic-bezier(0.25,0.8,0.25,1);
 }
-
-.welcome h1{
-
-    color:#00b894;
-
-    margin-bottom:10px;
-
+.card:hover, .word:hover, .menuItem:hover{
+    transform: translateY(-6px);
+    box-shadow:0 12px 28px rgba(0,0,0.12);
 }
-
-/* Continue */
-
-.continue{
-
-    margin-bottom:20px;
-
-}
-
-.mainButton{
-
-    width:100%;
-
-    padding:18px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:#00b894;
-
-    color:white;
-
-    font-size:20px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.mainButton:hover{
-
-    background:#00997a;
-
-}
-
-/* Menu */
-
-.menu{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:15px;
-
-    margin-bottom:20px;
-
-}
-
-.menuItem{
-
-    background:white;
-
-    border-radius:18px;
-
-    padding:20px;
-
-    text-align:center;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-    box-shadow:0 5px 12px rgba(0,0,0,.08);
-
-}
-
-.menuItem:hover{
-
-    transform:translateY(-5px);
-
-}
-
-.icon{
-
-    font-size:34px;
-
-    margin-bottom:10px;
-
-}
-
-.title{
-
-    font-size:17px;
-
-    font-weight:bold;
-
-}
-
-/* Buttons */
-
+/* 按钮美化渐变+按压动效 */
 button{
-
-    background:#00b894;
-
+    background:linear-gradient(135deg,#00b894,#00a884);
     color:white;
-
     border:none;
-
-    border-radius:12px;
-
+    border-radius:14px;
     padding:12px 24px;
-
     cursor:pointer;
-
-    transition:.3s;
-
+    transition: all 0.25s ease;
+    font-size:16px;
 }
-
 button:hover{
-
-    background:#00997a;
-
+    transform: translateY(-2px);
+    box-shadow:0 4px 12px rgba(0,184,148,0.3);
 }
-
-/* =========================
-   Statistics
-========================= */
-
-.statistics{
-
-display:grid;
-
-grid-template-columns:repeat(3,1fr);
-
-gap:15px;
-
-margin-bottom:20px;
-
+button:active{
+    transform: translateY(1px);
 }
-
-.card{
-
-background:white;
-
-border-radius:18px;
-
-padding:20px;
-
-text-align:center;
-
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-
+button.speak{
+    background:linear-gradient(135deg,#2196F3,#1976d2);
 }
-
-.number{
-
-font-size:32px;
-
-font-weight:bold;
-
-color:#00b894;
-
-margin-bottom:10px;
-
+button.flip{
+    background:linear-gradient(135deg,#ff9800,#fb8c00);
 }
-
-.label{
-
-color:#666;
-
-font-size:15px;
-
+button.prev{
+    background:linear-gradient(135deg,#607D8B,#546e7a);
 }
-
-/* =========================
-   Progress
-========================= */
-
-.progressBox{
-
-background:white;
-
-padding:20px;
-
-border-radius:18px;
-
-margin-bottom:20px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-
+button.next{
+    background:linear-gradient(135deg,#4CAF50,#388e3c);
 }
-
-.progress{
-
-width:100%;
-
-height:14px;
-
-background:#ddd;
-
-border-radius:20px;
-
-overflow:hidden;
-
-margin:20px 0;
-
-}
-
-.progressBar{
-
-height:100%;
-
-width:0%;
-
-background:#00b894;
-
-transition:1s;
-
-}
-
-#progressText{
-
-text-align:center;
-
-font-size:18px;
-
-font-weight:bold;
-
-}
-
-/* =========================
-   Today
-========================= */
-
-.today{
-
-background:white;
-
-padding:20px;
-
-border-radius:18px;
-
-margin-bottom:20px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-}
-
-.today ul{
-
-margin-top:15px;
-
-padding-left:20px;
-
-}
-
-.today li{
-
-margin-bottom:10px;
-
-}
-
-/* =========================
-   Lesson Card
-========================= */
-
-.lessonCard{
-
-background:white;
-
-padding:20px;
-
-border-radius:18px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-margin-bottom:30px;
-
-}
-
-.lessonCard h3{
-
-color:#00b894;
-
-margin-bottom:10px;
-
-}
-
-.lessonCard p{
-
-margin-bottom:20px;
-
-}
-
-/* =========================
-   Word Card
-========================= */
-
-.wordCard{
-
-background:white;
-
-padding:20px;
-
-border-radius:18px;
-
-margin-bottom:20px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-}
-
+/* 词汇文字层级 */
 .wordVN{
-
-font-size:30px;
-
-font-weight:bold;
-
-color:#00b894;
-
+    font-size:32px;
+    font-weight:bold;
+    color:#00b894;
 }
-
 .wordCN{
-
-margin-top:10px;
-
-font-size:24px;
-
+    margin-top:12px;
+    font-size:26px;
+    color:#222;
 }
-
 .wordPY{
-
-margin-top:10px;
-
-color:#777;
-
+    margin-top:8px;
+    color:#777;
+    font-size:18px;
 }
-
 .example{
-
-margin-top:20px;
-
-padding:15px;
-
-background:#f5f5f5;
-
-border-radius:12px;
-
+    margin-top:22px;
+    padding:18px;
+    background:#f8fffd;
+    border-left:6px solid #00b894;
+    border-radius:12px;
 }
-
-.buttonGroup{
-
-display:flex;
-
-gap:10px;
-
-margin-top:20px;
-
-flex-wrap:wrap;
-
+/* 搜索框 */
+#search, .search{
+    width:100%;
+    padding:16px 20px;
+    font-size:18px;
+    border-radius:16px;
+    border:1px solid #e0e0e0;
+    outline:none;
+    transition:0.3s;
 }
-
-.buttonGroup button{
-
-flex:1;
-
+#search:focus, .search:focus{
+    border-color:#00b894;
+    box-shadow:0 0 0 4px rgba(0,184,148,0.15);
 }
-
-/* =========================
-   Footer
-========================= */
-
-.footer{
-
-position:fixed;
-
-bottom:0;
-
-left:0;
-
+/* 进度条 */
+.progress{
 width:100%;
-
-background:white;
-
-display:flex;
-
-justify-content:space-around;
-
-padding:12px 0;
-
-box-shadow:0 -3px 10px rgba(0,0,0,.08);
-
+height:16px;
+background:#eee;
+border-radius:999px;
+overflow:hidden;
 }
-
-.navItem{
-
-text-align:center;
-
-cursor:pointer;
-
-font-size:14px;
-
-color:#444;
-
-}
-
-.navItem:hover{
-
-color:#00b894;
-
-}
-
-/* =========================
-   Dark Mode
-========================= */
-
-body.dark{
-
-background:#1e1e1e;
-
-color:white;
-
-}
-
-body.dark .card,
-
-body.dark .welcome,
-
-body.dark .lessonCard,
-
-body.dark .wordCard,
-
-body.dark .today,
-
-body.dark .progressBox,
-
-body.dark .menuItem{
-
-background:#2b2b2b;
-
-color:white;
-
-}
-
-body.dark .example{
-
-background:#3a3a3a;
-
-}
-
-body.dark .footer{
-
-background:#2b2b2b;
-
-}
-
-body.dark .label,
-
-body.dark .wordPY{
-
-color:#ccc;
-
-}
-
-/* =========================
-   Responsive
-========================= */
-
-@media(max-width:768px){
-
-.menu{
-
-grid-template-columns:repeat(2,1fr);
-
-}
-
-.statistics{
-
-grid-template-columns:1fr;
-
-}
-
-.logo{
-
-font-size:26px;
-
-}
-
-.wordVN{
-
-font-size:24px;
-
-}
-
-.wordCN{
-
-font-size:20px;
-
-}
-
-.mainButton{
-
-font-size:18px;
-
-}
-
-}
-
-@media(max-width:480px){
-
-.container{
-
-padding:15px;
-
-}
-
-.menu{
-
-grid-template-columns:1fr 1fr;
-
-gap:10px;
-
-}
-
-.menuItem{
-
-padding:15px;
-
-}
-
-.icon{
-
-font-size:28px;
-
-}
-
-.title{
-
-font-size:15px;
-
-}
-
-button{
-
-padding:10px 16px;
-
-}
-
-}
-
-/* =========================
-   Flashcard
-========================= */
-
-.flashcard{
-
-height:300px;
-
-background:white;
-
-border-radius:20px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:36px;
-
-font-weight:bold;
-
-margin-bottom:30px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-}
-
-.front,.back{
-
-width:100%;
-
+.progressBar, .progressValue{
 height:100%;
-
+background:linear-gradient(90deg,#00b894,#00d8b0);
+border-radius:999px;
+transition:width 0.6s ease-out;
+}
+/* Flashcard 3D翻转核心样式 */
+.flashcard{
+position:relative;
+min-height:360px;
+perspective: 1000px;
+overflow:hidden;
+background:white;
+border-radius:22px;
+padding:0;
+}
+.flash-wrap{
+width:100%;
+height:100%;
+position:relative;
+transition: transform 0.6s ease;
+transform-style: preserve-3d;
+}
+.flip-active{
+transform: rotateY(180deg);
+}
+.front, .back{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
 display:flex;
-
-align-items:center;
-
-justify-content:center;
-
 flex-direction:column;
-
-padding:20px;
-
+align-items:center;
+justify:center;
+padding:30px;
 text-align:center;
-
 }
-
 .back{
-
-color:#00b894;
-
+transform: rotateY(180deg);
 }
-
+/* Quiz答题选项 */
+.answer{
+padding:18px;
+border-radius:14px;
+border:2px solid #eee;
+cursor:pointer;
+transition:0.25s;
+background:white;
+}
+.answer:hover{
+border-color:#00b894;
+background:#f8fffd;
+transform:scale(1.01);
+}
+.answer.correct{
+background:#e8f5e9;
+border-color:#4CAF50;
+}
+.answer.wrong{
+background:#ffebee;
+border-color:#f44336;
+}
+/* 空白提示 */
+.empty{
+text-align:center;
+font-size:22px;
+color:#999;
+padding:60px 20px;
+}
+/* 响应式适配 */
+@media(max-width:768px){
+.logo{font-size:28px;}
+.wordVN{font-size:26px;}
+.wordCN{font-size:22px;}
+}
