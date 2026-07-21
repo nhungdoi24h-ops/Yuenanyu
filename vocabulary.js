@@ -1,48 +1,57 @@
-/*=========================================
- VietMiniApp
- vocabulary.js
- Version 2.0
-=========================================*/
 let words = [];
+// 双语元素
+const langBtn = document.getElementById("langBtn");
+const subTitle = document.querySelector(".subtitle");
+const searchInput = document.getElementById("search");
+const txtHome = document.getElementById("txtHome");
+
+function updateLangText(){
+    const lang = window.getLang();
+    const t = window.LANG[lang];
+    lang.innerText = lang==="vi"?"中文":"Tiếng Việt";
+    subTitle.innerText = lang==="vi"?"Danh sách từ vựng":"词汇列表";
+    searchInput.placeholder = t.search;
+    txtHome.innerText = t.home;
+}
+function switchLang(){
+    const l = window.getLang();
+    window.setLang(l==="vi"?"cn":"vi");
+}
 
 document.addEventListener("DOMContentLoaded", function(){
-    if (typeof VOCABULARY === "undefined" || !Array.isArray(VOCABULARY)) {
-        alert("Dữ liệu từ vựng tải thất bại, vui lòng làm mới trang!");
+    updateLangText();
+    if (typeof window.VOCABULARY === "undefined") {
+        alert(window.LANG[window.getLang()].dataErr);
         renderVocabulary([]);
         return;
     }
-    words = [...VOCABULARY];
+    words = [...window.VOCABULARY];
     renderVocabulary();
 });
 
-// Hiển thị danh sách từ
 function renderVocabulary(list = words) {
+    const t = window.LANG[window.getLang()];
     let html = "";
     if (list.length === 0) {
-        html = `
-        <div class="word">
-            <h2>Không tìm thấy từ vựng.</h2>
-        </div>
-        `;
+        html = `<div class="word"><h2>${t.noWord}</h2></div>`;
     } else {
         list.forEach(word => {
+            // 在线实景图片seed用词汇id，固定真实照片
+            let imgUrl = `https://picsum.photos/seed/${word.id}/900/400`;
             html += `
             <div class="word">
+                <div class="word-img">
+                    <img src="${imgUrl}" alt="${word.vn}">
+                </div>
                 <h2>${word.vn}</h2>
-                <p><strong>Tiếng Trung:</strong> ${word.cn}</p>
-                <p><strong>Pinyin:</strong> ${word.pinyin}</p>
-                <p><strong>Ví dụ:</strong> ${word.exampleVN}</p>
+                <p><strong>${t.cn}：</strong> ${word.cn}</p>
+                <p><strong>Pinyin：</strong> ${word.pinyin}</p>
+                <p><strong>${t.search}：</strong> ${word.exampleVN}</p>
                 <p>${word.exampleCN}</p>
                 <div class="action">
-                    <button onclick="speakWord('${word.vn}')">
-                        🔊 Nghe
-                    </button>
-                    <button onclick="saveWord('${word.vn}')">
-                        ❤️ Lưu
-                    </button>
-                    <button onclick="openFlashcard(${word.lesson})">
-                        🎴 Flashcard
-                    </button>
+                    <button class="speak" onclick="readWord('${word.vn}')">🔊 ${t.listen}</button>
+                    <button onclick="saveWord('${word.vn}')">❤️ ${t.save}</button>
+                    <button class="flip" onclick="openFlashcard(${word.lesson})">🎴 ${t.flashcard}</button>
                 </div>
             </div>
             `;
@@ -50,51 +59,32 @@ function renderVocabulary(list = words) {
     }
     document.getElementById("list").innerHTML = html;
 }
-
-// Tìm kiếm
+function readWord(text){
+    window.readVoice(text);
+}
 function searchWord() {
-    const keyword = document
-        .getElementById("search")
-        .value
-        .trim()
-        .toLowerCase();
-    const result = words.filter(word =>
-        word.vn.toLowerCase().includes(keyword) ||
-        word.cn.includes(keyword) ||
-        word.pinyin.toLowerCase().includes(keyword)
+    const kw = document.getElementById("search").value.trim().toLowerCase();
+    const res = words.filter(w=>
+        w.vn.toLowerCase().includes(kw) ||
+        w.cn.includes(kw) ||
+        w.pinyin.toLowerCase().includes(kw)
     );
-    renderVocabulary(result);
+    renderVocabulary(res);
 }
-
-// Phát âm
-function speakWord(text) {
-    speechSynthesis.cancel();
-    const speech = new SpeechSynthesisUtterance(text);
-    speech.lang = "vi-VN";
-    speech.rate = 0.8;
-    speech.pitch = 1;
-    speechSynthesis.speak(speech);
-}
-
-// Lưu từ yêu thích
 function saveWord(text) {
-    let favorites = [];
-    try {
-        const raw = localStorage.getItem("favorites");
-        if(raw) favorites = JSON.parse(raw);
-    } catch (e) {
-        localStorage.removeItem("favorites");
-    }
-    if (!favorites.includes(text)) {
-        favorites.push(text);
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-        alert("❤️ Đã lưu: " + text);
-    } else {
-        alert("Từ này đã có trong danh sách.");
+    let fav = [];
+    try{
+        let raw = localStorage.getItem("favorites");
+        if(raw) fav = JSON.parse(raw);
+    }catch(e){localStorage.removeItem("favorites");}
+    if(!fav.includes(text)){
+        fav.push(text);
+        localStorage.setItem("favorites",JSON.stringify(fav));
+        alert("❤️ "+text);
+    }else{
+        alert(window.getLang()==="vi"?"Đã lưu rồi":"已收藏");
     }
 }
-
-// Mở Flashcard
 function openFlashcard(lesson) {
-    window.location.href = "flashcard.html?id=" + lesson;
+    window.location.href = "flashcard.html?id="+lesson;
 }
