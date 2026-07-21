@@ -1031,4 +1031,6 @@ cn:"数字",
 pinyin:"shù zì",
 exampleVN:"Hãy đọc các số.",
 exampleCN:"请读这些数字。"
-},
+}
+
+];
