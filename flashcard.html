@@ -2,9 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flashcard</title>
 <link rel="stylesheet" href="style.css">
 <style>
@@ -92,95 +90,41 @@ border:none;
 border-radius:10px;
 cursor:pointer;
 }
-.flip{
-background:#FF9800;
-color:white;
-}
-.prev{
-background:#607D8B;
-color:white;
-}
-.next{
-background:#4CAF50;
-color:white;
-}
-.lesson{
-background:#2196F3;
-color:white;
-}
-.home{
-background:#9C27B0;
-color:white;
-}
+.flip{background:#FF9800;color:white;}
+.prev{background:#607D8B;color:white;}
+.next{background:#4CAF50;color:white;}
+.lesson{background:#2196F3;color:white;}
+.home{background:#9C27B0;color:white;}
 </style>
 </head>
 <body>
 <header>
-<h1 id="lessonTitle">
-Flashcard
-</h1>
-<p id="lessonInfo">
-Sẵn sàng học
-</p>
+<h1 id="lessonTitle">Flashcard</h1>
+<p id="lessonInfo">Sẵn sàng học</p>
 </header>
 <div class="container">
 <div class="progress">
-<div
-id="progressBar"
-class="progressBar">
+<div id="progressBar" class="progressBar"></div>
 </div>
-</div>
-<div
-id="flashcard"
-class="card">
-<div class="word" id="vn">
-</div>
-<div
-class="cn"
-id="cn">
-</div>
-<div
-class="pinyin"
-id="pinyin">
-</div>
-<div
-class="example"
-id="example">
-</div>
+<div id="flashcard" class="card">
+<div class="word" id="vn"></div>
+<div class="cn" id="cn"></div>
+<div class="pinyin" id="pinyin"></div>
+<div class="example" id="example"></div>
 </div>
 <div class="buttons">
-<button
-class="flip"
-onclick="flipCard()">
-🔄 Lật thẻ
-</button>
+<button class="flip" onclick="flipCard()">🔄 Lật thẻ</button>
 </div>
 <div class="buttons">
-<button
-class="prev"
-onclick="previousWord()">
-⬅ Từ trước
-</button>
-<button
-class="next"
-onclick="nextWord()">
-Từ tiếp ➜
-</button>
+<button class="prev" onclick="previousWord()">⬅ Từ trước</button>
+<button class="next" onclick="nextWord()">Từ tiếp ➜</button>
 </div>
 <div class="buttons">
-<button
-class="lesson"
-onclick="backLesson()">
-📖 Quay lại bài học
-</button>
-<button
-class="home"
-onclick="goHome()">
-🏠 Trang chủ
-</button>
+<button class="lesson" onclick="backLesson()">📖 Quay lại bài học</button>
+<button class="home" onclick="goHome()">🏠 Trang chủ</button>
 </div>
 </div>
-<script src="data.js" defer></script>
-<script src="flashcard.js" defer></script>
+<script src="data.js"></script>
+<script src="flashcard.js"></script>
 </body>
 </html>
