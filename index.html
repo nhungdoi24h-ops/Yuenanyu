@@ -1,498 +1,98 @@
 <!DOCTYPE html>
-<html lang="vi">
-
+<html lang="vi-CN">
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>VietMiniApp</title>
-
+<title>Học Tiếng Việt A0 | 越南语A0学习程序</title>
 <link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#00b894">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-
-<script src="data.js" defer></script>
-<script src="app.js" defer></script>
-
 </head>
-
 <body>
-
-<header class="header">
-
-<div class="logo">
-
-🇻🇳 VietMiniApp
-
+<!-- 顶部导航 -->
+<div class="nav-bar">
+<div class="container nav-container">
+<button class="nav-btn" data-target="lessonList">📚 课程总览 Danh sách bài học</button>
+<button class="nav-btn" data-target="vocLib">📖 词汇库 Từ vựng</button>
+<button class="nav-btn" data-target="flashCard">🃏 闪卡复习 Thẻ nhớ</button>
+<button class="nav-btn" data-target="dialogue">💬 对话练习 Hội thoại</button>
+<button class="nav-btn" data-target="grammar">📝 语法 Ngữ pháp</button>
+<button class="nav-btn" data-target="exercise">✏️ 练习题 Bài tập</button>
+</div>
 </div>
 
-<div class="subtitle">
-
-Học tiếng Việt dành cho người Trung Quốc
-
-</div>
-
-</header>
-
-<main class="container">
-
-<section class="welcome">
-
-<h1>
-
-Xin chào 👋
-
-</h1>
-
-<p>
-
-Chào mừng bạn đến với VietMiniApp.
-
-Hãy học mỗi ngày để tiến bộ.
-
-</p>
-
-</section>
-
-<section class="continue">
-
-<button id="continueBtn" class="mainButton">
-
-▶ Tiếp tục học
-
-</button>
-
-</section>
-
-<section class="menu">
-
-<div class="menuItem" onclick="openCourse()">
-
-<div class="icon">
-
-📚
-
-</div>
-
-<div class="title">
-
-Khóa học
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openVocabulary()">
-
-<div class="icon">
-
-📖
-
-</div>
-
-<div class="title">
-
-Từ vựng
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openGrammar()">
-
-<div class="icon">
-
-📝
-
-</div>
-
-<div class="title">
-
-Ngữ pháp
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openListening()">
-
-<div class="icon">
-
-🎧
-
-</div>
-
-<div class="title">
-
-Luyện nghe
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openSpeaking()">
-
-<div class="icon">
-
-🎤
-
-</div>
-
-<div class="title">
-
-Luyện nói
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openQuiz()">
-
-<div class="icon">
-
-❓
-
-</div>
-
-<div class="title">
-
-Quiz
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openFlashcard()">
-
-    <div class="icon">
-        🎴
+<div class="container">
+    <!-- 1.课程总览模块 -->
+    <div id="lessonList" class="module show">
+        <div class="card">
+            <h2 class="card-title">Danh sách bài học A0（A0课程列表）</h2>
+            <div class="tip">共30课，点击切换课程</div>
+            <div id="lessonBox"></div>
+        </div>
     </div>
 
-    <div class="title">
-        Flashcard
+    <!-- 2.词汇库模块 -->
+    <div id="vocLib" class="module">
+        <div class="card">
+            <h2 class="card-title">Từ vựng 词汇库</h2>
+            <div class="tip">当前课程：<span id="currLessonName"></span></div>
+            <div id="vocBox"></div>
+        </div>
     </div>
 
+    <!-- 3.闪卡复习模块 -->
+    <div id="flashCard" class="module">
+        <div class="card">
+            <h2 class="card-title">Thẻ nhớ 单词闪卡</h2>
+            <div class="tip">点击卡片翻面，可播放发音</div>
+            <div class="flashcard-wrap" id="flipWrap">
+                <div class="flashcard">
+                    <div class="flash-front">
+                        <img class="flash-img" id="flashImg" src="" alt="配图">
+                        <p id="flashVN"></p>
+                        <button class="audio-btn" id="flashAudio">▶</button>
+                    </div>
+                    <div class="flash-back">
+                        <p id="flashCN"></p>
+                        <p style="font-size:14px;margin-top:8px;" id="flashEx"></p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:10px;">
+                <button class="btn btn-blue" id="prevCard">← Trước 上一张</button>
+                <button class="btn btn-blue" id="nextCard">Sau → 下一张</button>
+                <span class="tip" id="cardIndex"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4.对话练习模块 -->
+    <div id="dialogue" class="module">
+        <div class="card">
+            <h2 class="card-title">Hội thoại 对话练习</h2>
+            <div class="tip">场景插图+单句发音跟读</div>
+            <div id="dialogImgBox"></div>
+            <div id="dialogBox"></div>
+        </div>
+    </div>
+
+    <!-- 5.语法讲解模块 -->
+    <div id="grammar" class="module">
+        <div class="card">
+            <h2 class="card-title">Ngữ pháp 语法讲解</h2>
+            <div id="grammarBox"></div>
+        </div>
+    </div>
+
+    <!-- 6.课后习题模块 -->
+    <div id="exercise" class="module">
+        <div class="card">
+            <h2 class="card-title">Bài tập 课后练习题</h2>
+            <div class="tip">每课随机≥15道，单选/填词/看图题型</div>
+            <button class="btn btn-blue" id="genExercise">Tạo đề ngẫu nhiên 随机出题</button>
+            <div id="exBox"></div>
+        </div>
+    </div>
 </div>
 
-<div class="menuItem" onclick="openDictionary()">
-
-<div class="icon">
-
-📚
-
-</div>
-
-<div class="title">
-
-Từ điển
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openFavorites()">
-
-<div class="icon">
-
-❤️
-
-</div>
-
-<div class="title">
-
-Yêu thích
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openProgress()">
-
-<div class="icon">
-
-📊
-
-</div>
-
-<div class="title">
-
-Tiến độ
-
-</div>
-
-</div>
-
-<div class="menuItem" onclick="openSettings()">
-
-<div class="icon">
-
-⚙️
-
-</div>
-
-<div class="title">
-
-Cài đặt
-
-</div>
-
-</div>
-
-</section>
-
-<section class="statistics">
-
-<div class="card">
-
-<div class="number" id="scoreHome">
-
-0
-
-</div>
-
-<div class="label">
-
-⭐ Điểm
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="number" id="xpHome">
-
-0
-
-</div>
-
-<div class="label">
-
-🔥 XP
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="number" id="lessonHome">
-
-0
-
-</div>
-
-<div class="label">
-
-📚 Đã học
-
-</div>
-
-</div>
-
-</section>
-
-<section class="progressBox">
-
-<h2>
-
-Tiến độ học
-
-</h2>
-
-<div class="progress">
-
-<div class="progressBar" id="progressBar">
-
-</div>
-
-</div>
-
-<p id="progressText">
-
-0%
-
-</p>
-
-</section>
-
-<section class="today">
-
-<h2>
-
-🎯 Mục tiêu hôm nay
-
-</h2>
-
-<ul>
-
-<li>✔ Học 1 bài</li>
-
-<li>✔ Ôn 10 từ vựng</li>
-
-<li>✔ Làm 1 bài Quiz</li>
-
-</ul>
-
-</section>
-
-<section class="recommend">
-
-<h2>
-
-📖 Gợi ý hôm nay
-
-</h2>
-
-<div class="lessonCard">
-
-<h3 id="recommendTitle">
-
-Bảng chữ cái
-
-</h3>
-
-<p id="recommendDesc">
-
-Bắt đầu học bảng chữ cái tiếng Việt.
-
-</p>
-
-<button onclick="location.href='lesson.html?id=1'">
-
-Học ngay
-
-</button>
-
-</div>
-
-</section>
-
-<footer class="footer">
-
-<div class="navItem" onclick="location.href='index.html'">
-
-🏠
-
-<br>
-
-Trang chủ
-
-</div>
-
-<div class="navItem" onclick="openCourse()">
-
-📚
-
-<br>
-
-Khóa học
-
-</div>
-
-<div class="navItem" onclick="openFavorites()">
-
-❤️
-
-<br>
-
-Yêu thích
-
-</div>
-
-<div class="navItem" onclick="openSettings()">
-
-⚙️
-
-<br>
-
-Cài đặt
-
-</div>
-
-</footer>
-
-<script>
-
-let score = Number(localStorage.getItem("score")) || 0;
-
-let xp = Number(localStorage.getItem("xp")) || 0;
-
-let done = 0;
-
-for(let i = 1; i <= 30; i++){
-
-    if(localStorage.getItem("lesson_" + i) === "done"){
-
-        done++;
-
-    }
-
-}
-
-let percent = Math.round(done / 30 * 100);
-
-document.getElementById("scoreHome").textContent = score;
-
-document.getElementById("xpHome").textContent = xp;
-
-document.getElementById("lessonHome").textContent = done;
-
-document.getElementById("progressBar").style.width = percent + "%";
-
-document.getElementById("progressText").textContent = percent + "%";
-
-</script>
-
-</main>
-
-<script>
-
-// Tiếp tục học
-const continueButton = document.getElementById("continueBtn");
-
-if (continueButton) {
-
-    continueButton.addEventListener("click", function () {
-
-        const current = localStorage.getItem("currentLesson");
-
-        if (current) {
-
-            window.location.href = current;
-
-        } else {
-
-            window.location.href = "lesson.html?id=1";
-
-        }
-
-    });
-
-}
-
-// Cập nhật bài học gợi ý
-if (typeof LESSONS !== "undefined") {
-
-    let current = Number(localStorage.getItem("currentLessonId")) || 1;
-
-    let lesson = LESSONS.find(item => item.id === current);
-
-    if (lesson) {
-
-        document.getElementById("recommendTitle").textContent = lesson.title;
-
-        document.getElementById("recommendDesc").textContent = lesson.description;
-
-    }
-
-}
-
-</script>
-
+<script src="data.js"></script>
+<script src="main.js"></script>
 </body>
-
-</html>
