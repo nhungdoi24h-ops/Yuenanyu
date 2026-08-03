@@ -1,368 +1,69 @@
-/* ================= VietMiniApp 标准化全局样式 ================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-:root {
-  /* 色彩系统 */
-  --primary: #00b894;
-  --primary-light: #54e0c0;
-  --primary-dark: #00866c;
-  --primary-gradient: linear-gradient(135deg, #00b894, #00866c);
-  --orange: #ff9800;
-  --blue: #2196f3;
-  --purple: #9c27b0;
-  --success: #4caf50;
-  --danger: #f44336;
-  --warning: #ffc107;
-  /* 中性灰度 */
-  --gray-50: #f8fafc;
-  --gray-100: #f1f5f9;
-  --gray-200: #e2e8f0;
-  --gray-300: #cbd5e1;
-  --gray-60: #64748b;
-  --gray-80: #1e293b;
-  --white: #ffffff;
-  /* 阴影分层 */
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-  --shadow-md: 0 6px 18px rgba(0,0,0.08);
-  --shadow-lg: 0 12px 32px rgba(0,0,0.12);
-  /* 圆角阶梯 */
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-full: 9999px;
-  /* 间距 */
-  --space-xs: 8px;
-  --space-sm: 12px;
-  --space-md: 20px;
-  --space-lg: 28px;
-  /* 动效时长 */
-  --fast: 0.18s ease;
-  --normal: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  --slow: 0.6s ease;
-}
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-  background: var(--gray-50);
-  color: var(--gray-80);
-  line-height: 1.6;
-  min-height: 100vh;
-  opacity: 0;
-  animation: pageFadeIn var(--slow) forwards;
-}
-/* 页面入场淡入动画 */
-@keyframes pageFadeIn {
-  to { opacity: 1; }
-}
-/* 骨架屏加载动画 */
-@keyframes skeletonLoad {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-/* 暗色模式 */
-body.dark {
-  background: #0f172a;
-  color: var(--gray-200);
-}
-body.dark .card,
-body.dark .word,
-body.dark .menuItem,
-body.dark .flashcard {
-  background: #1e293b;
-}
-body.dark .example {
-  background: #334155;
-}
-/* 容器 */
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: var(--space-md);
-}
-/* 头部玻璃拟态 */
-.header {
-  background: var(--primary-gradient);
-  color: var(--white);
-  padding: var(--space-lg) var(--space-md);
-  text-align: center;
-  position: relative;
-  box-shadow: var(--shadow-md);
-}
-.lang-switch {
-  position: absolute;
-  right: var(--space-md);
-  top: var(--space-md);
-  padding: var(--space-xs) var(--space-sm);
-  background: rgba(255,255,0.25);
-  border: 1px solid rgba(255,255,0.4);
-  border-radius: var(--radius-full);
-  color: white;
-  cursor: pointer;
-  transition: var(--normal);
-}
-.lang-switch:hover {
-  background: rgba(255,255,0.4);
-  transform: translateY(-2px);
-}
-.logo {
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-.subtitle {
-  margin-top: var(--space-xs);
-  font-size: 16px;
-  opacity: 0.9;
-}
-/* 通用卡片 */
-.card, .word, .menuItem {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  margin-bottom: var(--space-md);
-  box-shadow: var(--shadow-sm);
-  transition: var(--normal);
-  overflow: hidden;
-}
-.card:hover, .word:hover, .menuItem:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-/* 词汇实景图片 */
-.word-img {
-  width: 100%;
-  height: 190px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  margin-bottom: var(--space-md);
-}
-.word-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--slow);
-}
-.word:hover .word-img img {
-  transform: scale(1.06);
-}
-/* 骨架占位 */
-.skeleton {
-  background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
-  background-size: 200% 100%;
-  animation: skeletonLoad 1.2s infinite;
-  border-radius: var(--radius-sm);
-}
-/* 文字层级 */
-.wordVN {
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--primary);
-}
-.wordCN {
-  font-size: 24px;
-  margin-top: var(--space-xs);
-}
-.wordPY {
-  font-size: 18px;
-  color: var(--gray-60);
-  margin-top: var(--space-xs);
-}
-/* 例句区块 */
-.example {
-  margin-top: var(--space-lg);
-  padding: var(--space-md);
-  background: var(--gray-100);
-  border-left: 6px solid var(--primary);
-  border-radius: var(--radius-sm);
-}
-/* 搜索框 */
-#search, .search {
-  width: 100%;
-  padding: 16px var(--space-md);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-md);
-  font-size: 16px;
-  outline: none;
-  transition: var(--normal);
-}
-#search:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(0,184,148,0.15);
-}
-/* 按钮统一规范 触控最小48px */
-button {
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 14px var(--space-md);
-  min-height: 48px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: var(--normal);
-}
-button.primary {
-  background: var(--primary-gradient);
-  color: white;
-}
-button.speak {
-  background: linear-gradient(135deg, var(--blue), #1565c0);
-  color: white;
-}
-button.flip {
-  background: linear-gradient(135deg, var(--orange), #f57c00);
-  color: white;
-}
-button.prev {
-  background: linear-gradient(135deg,#607D8B,#546e7a);
-  color:white;
-}
-button.next {
-  background: linear-gradient(135deg,#4CAF50,#388e3c);
-  color:white;
-}
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-}
-button:active {
-  transform: scale(0.97);
-}
-/* 按钮组自适应 */
-.button-group {
-  display: flex;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-  margin-top: var(--space-lg);
-}
-.button-group button {
-  flex: 1;
-  min-width: 120px;
-}
-/* 进度条 */
-.progress {
-  width: 100%;
-  height: 16px;
-  background: var(--gray-200);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-}
-.progressBar {
-  height: 100%;
-  background: var(--primary-gradient);
-  border-radius: var(--radius-full);
-  transition: width var(--slow);
-}
-/* Flashcard 3D翻转 */
-.flashcard {
-  position: relative;
-  min-height: 420px;
-  perspective: 1200px;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: white;
-}
-.flash-wrap {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.25, 1);
-}
-.flip-active {
-  transform: rotateY(180deg);
-}
-.front, .back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  padding: var(--space-lg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.back {
-  transform: rotateY(180deg);
-}
-/* Quiz 选项 */
-.answer {
-  padding: var(--space-md);
-  border: 2px solid var(--gray-200);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: var(--normal);
-  margin-bottom: var(--space-sm);
-}
-.answer:hover {
-  border-color: var(--primary);
-  background: rgba(0,184,0.06);
-  transform: scale(1.01);
-}
-.answer.correct {
-  background: rgba(76,175,80,0.12);
-  border-color: var(--success);
-}
-.answer.wrong {
-  background: rgba(244,67,54,0.12);
-  border-color: var(--danger);
-}
-/* 空状态 */
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  font-size: 20px;
-  color: var(--gray-60);
-}
-/* 底部导航 */
-.footer-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: white;
-  display: flex;
-  justify-content: space-around;
-  padding: 12px 0;
-  box-shadow: 0 -4px 10px rgba(0,0,0.06);
-}
-.nav-item {
-  text-align: center;
-  cursor: pointer;
-  color: var(--gray-60);
-  transition: var(--normal);
-}
-.nav-item:hover, .nav-item.active {
-  color: var(--primary);
-  transform: scale(1.05);
-}
-/* Toast 轻提示 */
-.toast {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 12px 24px;
-  border-radius: var(--radius-md);
-  color: white;
-  z-index: 9999;
-  animation: toastIn 0.3s forwards;
-}
-@keyframes toastIn {
-  from { opacity: 0; transform: translate(-50%, 20px); }
-  to { opacity: 1; transform: translate(-50%,0); }
-}
-/* 响应式适配移动端 */
-@media (max-width:768px) {
-  .logo { font-size: 28px; }
-  .wordVN { font-size: 26px; }
-  .word-img { height: 150px; }
-  .container { padding: var(--space-sm); }
+/* 全局淡蓝柔和配色 */
+*{margin:0;padding:0;box-sizing:border;font-family: "Segoe UI", "Microsoft YaHei", sans-serif;}
+body{background:#E6F2FF;color:#222;line-height:1.6;}
+.container{max:1200px;margin:0 auto;padding:16px;}
+
+/* 顶部导航栏 */
+.nav-bar{background:#80BFFF;padding:14px;border-radius:0 0 12px 12px;box-shadow:0 2px 8px #cce0f5;}
+.nav-container{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.nav-btn{background:#3388DD;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:15px;cursor:pointer;transition:0.2s;}
+.nav-btn:hover{background:#2670bb;transform:translateY(-2px);}
+.nav-btn.active{background:#1f5fa8;box-shadow:inset 0 2px 4px #144470;}
+
+/* 通用卡片组件 */
+.card{background:#F8FBFF;border:1px solid #CCE5FF;border-radius:12px;padding:20px;margin:16px 0;box-shadow:0 1px 6px #e0edfa;}
+.card-title{font-size:18px;color:#3388DD;margin-bottom:12px;border-bottom:1px solid #CCE5FF;padding-bottom:8px;}
+.tip{color:#508fc8;font-size:14px;margin:8px 0;}
+
+/* 课程列表项 */
+.lesson-item{padding:10px;border-radius:8px;margin:8px 0;background:#fff;border:1px solid #CCE5FF;cursor:pointer;}
+.lesson-item:hover{background:#E6F2FF;}
+.lesson-item.active{background:#d0e8ff;border-color:#80BFFF;}
+
+/* 闪卡专用样式 */
+.flashcard-wrap{perspective: 1000px;margin:30px auto;max-width:520px;height:320px;}
+.flashcard{width:100%;height:100%;position:relative;transition:transform 0.6s;transform-style:preserve-3d;cursor:pointer;}
+.flip .flashcard{transform: rotateY(180deg);}
+.flash-front,.flash-back{position:absolute;width:100%;height:100%;padding:40px;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.flash-front{background:#80BFFF;color:#fff;font-size:26px;}
+.flash-back{background:#fff;color:#3388DD;transform:rotateY(180deg);border:2px solid #80BFFF;font-size:20px;}
+.flash-img{width:160px;height:120px;object-fit:cover;border-radius:8px;margin:10px 0;}
+
+/* 通用按钮 */
+.btn{background:#80BFFF;border:none;color:#222;padding:8px 16px;border-radius:6px;cursor:pointer;margin:4px;}
+.btn-blue{background:#3388DD;color:#fff;}
+.btn-sm{padding:4px 10px;font-size:13px;}
+.audio-btn{background:#3388DD;color:#fff;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;}
+
+/* 词汇表格 */
+.voc-table{width:100%;border-collapse:collapse;margin:10px 0;}
+.voc-table td,th{border:1px solid #CCE5FF;padding:8px;text-align:left;}
+.voc-table th{background:#80BFFF;color:#fff;}
+
+/* 对话模块 */
+.dialog-item{background:#fff;padding:12px;border-radius:8px;margin:10px 0;border-left:4px solid #80BFFF;}
+.speaker{font-weight:bold;color:#3388DD;margin-bottom:4px;}
+.vn-text{font-size:16px;margin:2px 0;}
+.cn-text{font-size:14px;color:#555;}
+.dialog-img{width:280px;border-radius:8px;margin:10px 0;}
+
+/* 语法模块 */
+.grammar-pattern{background:#E6F2FF;padding:10px;border-radius:6px;margin:8px 0;}
+
+/* 习题模块 */
+.question{margin:18px 0;padding:14px;background:#fff;border-radius:8px;}
+.opt{display:block;padding:6px 10;margin:4px;background:#F8FBFF;border-radius:6px;cursor:pointer;}
+.opt:hover{background:#E6F2FF;}
+.opt.correct{background:#b8e6bf;color:#086316;border:1px solid #30b050;}
+.opt.wrong{background:#ffd8d8;color:#a81616;border:1px solid #f06666;}
+
+/* 模块隐藏控制 */
+.module{display:none;}
+.module.show{display:block;}
+
+/* 手机适配 */
+@media(max:768px){
+.container{padding:8px;}
+.flashcard-wrap{height:260px;}
+.dialog-img{width:100%;}
 }
